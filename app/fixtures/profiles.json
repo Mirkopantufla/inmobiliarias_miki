@@ -1,0 +1,34 @@
+[
+    {
+        "model": "app.profile",
+        "pk": 1,
+        "fields": {
+            "usuario": 1,
+            "segundo_nombre": "Sergei",
+            "segundo_apellido": "Carcamo",
+            "rut": 19746537,
+            "dv": 5,
+            "direccion": "Santa Rosa 884",
+            "region": 13,
+            "comuna": 116,
+            "telefono": 56973648595,
+            "tipo_usuario": 1
+        }
+    },
+    {
+        "model": "app.profile",
+        "pk": 2,
+        "fields": {
+            "usuario": 2,
+            "segundo_nombre": "McQueen",
+            "segundo_apellido": "Amarillo",
+            "rut": 26374857,
+            "dv": 3,
+            "direccion": "Mi Pieza",
+            "region": 13,
+            "comuna": 102,
+            "telefono": 74637846,
+            "tipo_usuario": 1
+        }
+    }
+]

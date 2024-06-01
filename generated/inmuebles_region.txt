@@ -1,0 +1,74 @@
+
+-------------------------------- XIII Metropolitana de Santiago --------------------------------
+---- ID: 2 ----
+Nombre: Parcela Campo
+Descripcion: Parcela de eventos con picina
+M2 Terreno: 600
+M2 Construidos: 200
+Cant. Estacionamientos: 5
+Cant. Habitaciones: 4
+Cant. Baños: 2
+Direccion: Santa Rosa 3040
+Precio Mensual: 600000.0
+Region: Metropolitana de Santiago
+Comuna: Lampa
+Tipo Inmueble: Parcela
+
+---- ID: 5 ----
+Nombre: Parcela Familiar
+Descripcion: Parcela familiar con picina y bodega para almacenaje
+M2 Terreno: 1000
+M2 Construidos: 300
+Cant. Estacionamientos: 6
+Cant. Habitaciones: 6
+Cant. Baños: 4
+Direccion: Santa Rosa 3040
+Precio Mensual: 1000000.0
+Region: Metropolitana de Santiago
+Comuna: Lampa
+Tipo Inmueble: Parcela
+
+---- ID: 3 ----
+Nombre: Departamento Faranklin
+Descripcion: Departamento amoblado en calle franklin con vecinos agradables
+M2 Terreno: 50
+M2 Construidos: 50
+Cant. Estacionamientos: 1
+Cant. Habitaciones: 2
+Cant. Baños: 1
+Direccion: Franklin 9384
+Precio Mensual: 300000.0
+Region: Metropolitana de Santiago
+Comuna: Santiago
+Tipo Inmueble: Departamento
+
+---- ID: 1 ----
+Nombre: Casa Playa
+Descripcion: Bonita casa en la playa con vista al mar
+M2 Terreno: 200
+M2 Construidos: 50
+Cant. Estacionamientos: 1
+Cant. Habitaciones: 3
+Cant. Baños: 2
+Direccion: Los Olmos
+Precio Mensual: 400000.0
+Region: Metropolitana de Santiago
+Comuna: El Tabo
+Tipo Inmueble: Casa
+
+
+-------------------------------- IX Araucanía --------------------------------
+---- ID: 4 ----
+Nombre: Cabaña Vistahermosa
+Descripcion: Cabaña ubicada entre las laderas del cerro
+M2 Terreno: 5000
+M2 Construidos: 70
+Cant. Estacionamientos: 2
+Cant. Habitaciones: 2
+Cant. Baños: 2
+Direccion: Santa Cochamo
+Precio Mensual: 800000.0
+Region: Araucanía
+Comuna: Cochamó
+Tipo Inmueble: Casa
+

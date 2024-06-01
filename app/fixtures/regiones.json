@@ -1,0 +1,178 @@
+[
+    {
+        "model": "app.Region",
+        "pk": "15",
+        "fields": {
+            "id": "15",
+            "nombre": "Arica y Parinacota",
+            "numero_romano": "XV",
+            "numero_region": "15",
+            "abreviacion": "AP"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "1",
+        "fields": {
+            "id": "1",
+            "nombre": "Tarapacá",
+            "numero_romano": "I",
+            "numero_region": "1",
+            "abreviacion": "TA"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "2",
+        "fields": {
+            "id": "2",
+            "nombre": "Antofagasta",
+            "numero_romano": "II",
+            "numero_region": "2",
+            "abreviacion": "AN"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "3",
+        "fields": {
+            "id": "3",
+            "nombre": "Atacama",
+            "numero_romano": "III",
+            "numero_region": "3",
+            "abreviacion": "AT"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "4",
+        "fields": {
+            "id": "4",
+            "nombre": "Coquimbo",
+            "numero_romano": "IV",
+            "numero_region": "4",
+            "abreviacion": "CO"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "5",
+        "fields": {
+            "id": "5",
+            "nombre": "Valparaíso",
+            "numero_romano": "V",
+            "numero_region": "5",
+            "abreviacion": "VA"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "13",
+        "fields": {
+            "id": "13",
+            "nombre": "Metropolitana de Santiago",
+            "numero_romano": "XIII",
+            "numero_region": "13",
+            "abreviacion": "RM"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "6",
+        "fields": {
+            "id": "6",
+            "nombre": "Libertador Gral. Bernardo O’Higgins",
+            "numero_romano": "VI",
+            "numero_region": "6",
+            "abreviacion": "LI"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "7",
+        "fields": {
+            "id": "7",
+            "nombre": "Maule",
+            "numero_romano": "VII",
+            "numero_region": "7",
+            "abreviacion": "ML"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "16",
+        "fields": {
+            "id": "16",
+            "nombre": "Ñuble",
+            "numero_romano": "XVI",
+            "numero_region": "16",
+            "abreviacion": "NB"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "8",
+        "fields": {
+            "id": "8",
+            "nombre": "Biobío",
+            "numero_romano": "VIII",
+            "numero_region": "8",
+            "abreviacion": "BI"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "9",
+        "fields": {
+            "id": "9",
+            "nombre": "Araucanía",
+            "numero_romano": "IX",
+            "numero_region": "9",
+            "abreviacion": "AR"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "14",
+        "fields": {
+            "id": "14",
+            "nombre": "Los Ríos",
+            "numero_romano": "XIV",
+            "numero_region": "14",
+            "abreviacion": "LR"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "10",
+        "fields": {
+            "id": "10",
+            "nombre": "Los Lagos",
+            "numero_romano": "X",
+            "numero_region": "10",
+            "abreviacion": "LL"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "11",
+        "fields": {
+            "id": "11",
+            "nombre": "Aisén del Gral. Carlos Ibáñez del Campo",
+            "numero_romano": "XI",
+            "numero_region": "11",
+            "abreviacion": "AI"
+        }
+    },
+    {
+        "model": "app.Region",
+        "pk": "12",
+        "fields": {
+            "id": "12",
+            "nombre": "Magallanes y de la Antártica Chilena",
+            "numero_romano": "XII",
+            "numero_region": "12",
+            "abreviacion": "MA"
+        }
+    }
+]

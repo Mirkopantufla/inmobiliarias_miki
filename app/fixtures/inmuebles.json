@@ -1,0 +1,92 @@
+[
+    {
+        "model": "app.inmueble",
+        "pk": 1,
+        "fields": {
+            "nombre": "Casa Playa",
+            "descripcion": "Bonita casa en la playa con vista al mar",
+            "metros_cuadrados_terreno": 200,
+            "metros_cuadrados_construidos": 50,
+            "cantidad_estacionamientos": 1,
+            "cantidad_habitaciones": 3,
+            "cantidad_banios": 2,
+            "precio_mensual": 400000.0,
+            "direccion": "Los Olmos",
+            "region": 13,
+            "comuna": 54,
+            "tipo_inmueble": 2
+        }
+    },
+    {
+        "model": "app.inmueble",
+        "pk": 2,
+        "fields": {
+            "nombre": "Parcela Campo",
+            "descripcion": "Parcela de eventos con picina",
+            "metros_cuadrados_terreno": 600,
+            "metros_cuadrados_construidos": 200,
+            "cantidad_estacionamientos": 5,
+            "cantidad_habitaciones": 4,
+            "cantidad_banios": 2,
+            "precio_mensual": 600000.0,
+            "direccion": "Santa Rosa 3040",
+            "region": 13,
+            "comuna": 102,
+            "tipo_inmueble": 1
+        }
+    },
+    {
+        "model": "app.inmueble",
+        "pk": 3,
+        "fields": {
+            "nombre": "Departamento Faranklin",
+            "descripcion": "Departamento amoblado en calle franklin con vecinos agradables",
+            "metros_cuadrados_terreno": 50,
+            "metros_cuadrados_construidos": 50,
+            "cantidad_estacionamientos": 1,
+            "cantidad_habitaciones": 2,
+            "cantidad_banios": 1,
+            "precio_mensual": 300000.0,
+            "direccion": "Franklin 9384",
+            "region": 13,
+            "comuna": 131,
+            "tipo_inmueble": 3
+        }
+    },
+    {
+        "model": "app.inmueble",
+        "pk": 4,
+        "fields": {
+            "nombre": "Cabaña Vistahermosa",
+            "descripcion": "Cabaña ubicada entre las laderas del cerro",
+            "metros_cuadrados_terreno": 5000,
+            "metros_cuadrados_construidos": 70,
+            "cantidad_estacionamientos": 2,
+            "cantidad_habitaciones": 2,
+            "cantidad_banios": 2,
+            "precio_mensual": 800000.0,
+            "direccion": "Santa Cochamo",
+            "region": 9,
+            "comuna": 301,
+            "tipo_inmueble": 2
+        }
+    },
+    {
+        "model": "app.inmueble",
+        "pk": 5,
+        "fields": {
+            "nombre": "Parcela Familiar",
+            "descripcion": "Parcela familiar con picina y bodega para almacenaje",
+            "metros_cuadrados_terreno": 1000,
+            "metros_cuadrados_construidos": 300,
+            "cantidad_estacionamientos": 6,
+            "cantidad_habitaciones": 6,
+            "cantidad_banios": 4,
+            "precio_mensual": 1000000.0,
+            "direccion": "Santa Rosa 3040",
+            "region": 13,
+            "comuna": 102,
+            "tipo_inmueble": 1
+        }
+    }
+]
