@@ -1,0 +1,62 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+        <!-- <a class="p-1" href="#">
+            <img src="{% static 'img/icon-custard.png' %}" alt="">
+        </a> -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav custom-nav-width">
+                <li class="nav-item fw-bold">
+                    <a class="nav-link primary-flan-color" aria-current="page" href="{% url 'indice' %}">Inicio</a>
+                </li>
+                {% if user.is_authenticated %}
+
+                {% if profile.tipo_usuario.descripcion == 'Arrendador' %}
+                <li class="nav-item fw-bold">
+                    <a class="nav-link primary-flan-color" aria-current="page" href="">Gestionar Arriendos</a>
+                </li>
+                {% elif profile.tipo_usuario.descripcion == 'Arrendatario' %}
+                <li class="nav-item fw-bold">
+                    <a class="nav-link primary-flan-color" aria-current="page" href="">Buscar Arriendos</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                <li class="nav-item fw-bold">
+                    <a class="nav-link primary-flan-color" aria-current="page" href="{% url 'acerca' %}">Acerca</a>
+                </li>
+                <li class="nav-item fw-bold">
+                    <a class="nav-link primary-flan-color" aria-current="page" href="{% url 'contacto' %}">Contacto</a>
+                </li>
+                {% if user.is_authenticated %}
+                <div class="dropdown custom-nav-item">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Perfil
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">Perfil</a></li>
+                        <li><a class="dropdown-item" href="{% url 'update_profile' %}">Actualizar Perfil</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar
+                                Sesion</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="custom-nav-item d-lg-flex">
+                    <li class="nav-item">
+                        <a type="button" class="btn btn-primary mb-1 mb-lg-0 me-0 me-lg-1" aria-current="page"
+                            href="{% url 'register' %}">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a type="button" class="btn btn-primary" aria-current="page" href="{% url 'login' %}">Iniciar
+                            Sesion</a>
+                    </li>
+                </div>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

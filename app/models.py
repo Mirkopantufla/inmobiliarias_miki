@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.db import models
+import uuid
 
 # Create your models here.
 
@@ -12,35 +13,40 @@ class Profile(models.Model):
     usuario = models.OneToOneField(
         User, related_name='usuario', on_delete=models.CASCADE)
     segundo_nombre = models.CharField(max_length=100)
-    segundo_apellido = models.CharField(max_length=100)
+    apellido_materno = models.CharField(max_length=100)
     rut = models.IntegerField(
         validators=[
             MinValueValidator(1),
             MaxValueValidator(999999999)
-        ]
+        ],
+        blank=True
     )  # xxx.xxx.xxx (En caso de ser empresa)
     dv = models.SmallIntegerField(
         validators=[
             MinValueValidator(1),
             MaxValueValidator(11)
-        ]
+        ],
+        blank=True
     )  # 1-9, K=10, 0=11
     direccion = models.CharField(max_length=300)
     region = models.ForeignKey(
         'Region',
         related_name='usuario',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True
     )
     comuna = models.ForeignKey(
         'Comuna',
         related_name='usuario',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True
     )
-    telefono = models.BigIntegerField()
+    telefono = models.BigIntegerField(null=True)
     tipo_usuario = models.ForeignKey(
         'TipoUsuario',
         related_name='usuario',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True
     )
 
     # Funcion que formatea el digito verificador en caso de ser 10 u 11
@@ -160,3 +166,14 @@ class Comuna(models.Model):
 
     def __str__(self) -> str:
         return f'{self.nombre}'
+
+
+class ContactForm(models.Model):
+    # No se podra modificar de ninguna manera
+    contact_form_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    customer_email = models.EmailField()
+    customer_name = models.CharField(max_length=64)
+    message = models.TextField()
+
+    def __str__(self):
+        return f"{self.customer_email} - Mensaje: {self.message}"
