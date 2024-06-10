@@ -22,21 +22,21 @@
             <div class="row border-bottom border-top">
                 <div class="col-4 text-center p-3">
                     <img height="32px" width="32px" src="{% static '/img/icon-location-mid.png' %}" alt="">
-                    <h5 class="px-2">Direccion :</h5>
+                    <h5 class="px-2">Direccion</h5>
                     <span class="fs-6">
                         {{inmueble.direccion}}, {{inmueble.comuna.nombre}}, {{inmueble.region.nombre}}
                     </span>
                 </div>
                 <div class="col-4 text-center border-start border-end p-3">
                     <img height="32px" width="32px" src="{% static '/img/icon-area-mid.png' %}" alt="">
-                    <h5 class="px-2">m² Terreno:</h5>
+                    <h5 class="px-2">m² Terreno</h5>
                     <span class="fs-5">
                         {{inmueble.metros_cuadrados_terreno}}
                     </span>
                 </div>
                 <div class="col-4 text-center p-3">
                     <img height="32px" width="32px" src="{% static '/img/icon-area-mid.png' %}" alt="">
-                    <h5 class="px-2">m² Construidos:</h5>
+                    <h5 class="px-2">m² Construidos</h5>
                     <span class="fs-5">
                         {{inmueble.metros_cuadrados_construidos}}
                     </span>
@@ -45,21 +45,21 @@
             <div class="row border-bottom mb-2">
                 <div class="col-4 text-center p-3">
                     <img height="32px" width="32px" src="{% static '/img/icon-parking-area-mid.png' %}" alt="">
-                    <h5 class="px-2">Estacionamientos:</h5>
+                    <h5 class="px-2">Estacionamientos</h5>
                     <span class="fs-5">
                         {{inmueble.cantidad_estacionamientos}}
                     </span>
                 </div>
                 <div class="col-4 text-center border-start border-end p-3">
                     <img height="32px" width="32px" src="{% static '/img/icon-bed-mid.png' %}" alt="">
-                    <h5 class="px-2">Habitaciones:</h5>
+                    <h5 class="px-2">Habitaciones</h5>
                     <span class="fs-5">
                         {{inmueble.cantidad_habitaciones}}
                     </span>
                 </div>
                 <div class="col-4 text-center p-3">
                     <img height="32px" width="32px" src="{% static '/img/icon-bathroom-mid.png' %}" alt="">
-                    <h5 class="px-2">Baños:</h5>
+                    <h5 class="px-2">Baños</h5>
                     <span class="fs-5">
                         {{inmueble.cantidad_banios}}
                     </span>
@@ -72,26 +72,68 @@
                     </p>
                 </div>
             </div>
-            <div class="row mb-2 text-center">
+            <div class="row mb-2 text-center p-2 border border-2">
                 <span class="fs-4">Desde {{ inmueble.format_price }} el arriendo mensual</span>
             </div>
-
+            <div class="row mb-2">
+                <div class="col-12 d-flex justify-content-evenly">
+                    <div class="d-flex align-items-center">
+                        <h5 class="me-2 mb-1">Dueño: </h5>
+                        <span>{{ inmueble.id_usuario.first_name}} {{inmueble.id_usuario.last_name}}</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <h5 class="me-2 mb-1">Correo: </h5>
+                        <span>{{ inmueble.id_usuario.email}}</span>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 {% if profile.tipo_usuario.descripcion == 'Arrendatario' %}
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactoArrendadorModal"
                     data-id="{{ inmueble.id }}/{{ inmueble.id_usuario.id }}">
                     Contactar con {{inmueble.id_usuario.first_name}}
                 </button>
-                {% elif profile.tipo_usuario.descripcion == 'Arrendador' %}
+                {% elif profile.tipo_usuario.descripcion == 'Arrendador' and inmueble.id_usuario == user %}
                 <div class="bg-body-secondary">
                     <h2 class="text-center py-2">Mensajes</h2>
-                    {% for mensaje in mensajes %}
-                    <div class="col-12 p-3 d-flex justify-content-between border-4 border-black border-top">
-                        <h4>{{mensaje.id_arrendatario.first_name}}</h4>
-                        <p class="fs-5">{{mensaje.mensaje}}</p>
-                        <span class="fs-5">{{mensaje.format_price}}</span>
-                    </div>
-                    {% endfor %}
+                    <table class="col-12 table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fecha Mensaje</th>
+                                <th>Arrendador</th>
+                                <th>Mensaje</th>
+                                <th>Contra oferta</th>
+                                <th>Visto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mensaje in mensajes %}
+                            <tr>
+                                <td class="align-middle">{{mensaje.creacion_registro|date:"d-M-Y "}}</td>
+                                <td class="align-middle">{{mensaje.id_arrendatario.first_name}}</td>
+                                <td class="align-middle">{{mensaje.mensaje}}</td>
+                                <td class="align-middle">{{mensaje.format_price}}</td>
+                                <td class="align-middle">
+                                    {% if mensaje.visto == True %}
+                                    <button class="btn btn-success" disabled>
+                                        <img width="16px" height="16px" src="{% static '/img/icon-check.png' %}"
+                                            alt="check">
+                                    </button>
+                                    {% else %}
+                                    <form method="post" id="visualizarMensaje"
+                                        action="/visualizar-mensaje/{{mensaje.id}}/{{inmueble.id}}/">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-info">
+                                            <img width="16px" height="16px" src="{% static '/img/icon-close.png' %}"
+                                                alt="closed">
+                                        </button>
+                                    </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
                 {% endif %}
             </div>

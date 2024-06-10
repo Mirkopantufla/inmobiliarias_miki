@@ -11,37 +11,56 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav custom-nav-width">
                 <li class="nav-item fw-bold">
-                    <a class="nav-link primary-flan-color" aria-current="page" href="{% url 'indice' %}">Inicio</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'indice' %}">Inicio</a>
                 </li>
                 {% if user.is_authenticated %}
 
                 {% if profile.tipo_usuario.descripcion == 'Arrendador' %}
                 <li class="nav-item fw-bold">
-                    <a class="nav-link primary-flan-color" aria-current="page"
-                        href="{% url 'gestionar_inmuebles' %}">Gestionar Inmuebles</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'gestionar_inmuebles' %}">Gestionar
+                        Inmuebles</a>
                 </li>
                 {% elif profile.tipo_usuario.descripcion == 'Arrendatario' %}
                 <li class="nav-item fw-bold">
-                    <a class="nav-link primary-flan-color" aria-current="page"
-                        href="{% url 'explorar_inmuebles' %}">Buscar Arriendos</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'explorar_inmuebles' %}">Buscar Arriendos</a>
                 </li>
                 {% endif %}
                 {% endif %}
                 <li class="nav-item fw-bold">
-                    <a class="nav-link primary-flan-color" aria-current="page" href="{% url 'acerca' %}">Acerca</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'acerca' %}">Acerca</a>
                 </li>
                 <li class="nav-item fw-bold">
-                    <a class="nav-link primary-flan-color" aria-current="page" href="{% url 'contacto' %}">Contacto</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'contacto' %}">Contacto</a>
                 </li>
                 {% if user.is_authenticated %}
                 <div class="btn-group custom-nav-item">
-                    <a type="button" class="btn btn-primary" href="{% url 'profile' %}">{{ user.username }}</a>
+                    <a type="button" class="btn btn-primary d-flex align-items-center" href="{% url 'profile' %}">
+                        {{user.first_name}}
+                    </a>
+                    <div class="btn-group dropstart" role="group">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img width="22px" height="22px" class="negro-blanco"
+                                src="{% static 'img/icon-notification.png' %}" alt="">
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for mensaje in mensajes %}
+                            <li class="d-flex align-items-center">
+                                {% if mensaje.visto == False %}
+                                <span class="punto-rojo ps-2"></span>
+                                {% endif %}
+                                <a class="dropdown-item" href="/detalle-inmueble/{{mensaje.id_inmueble.id}}/">
+                                    {{mensaje.id_arrendador.first_name}} - {{mensaje.id_inmueble.nombre}}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
                     <a type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'profile' %}">Perfil</a></li>
                         <li><a class="dropdown-item" href="{% url 'actualizar_prefil' %}">Actualizar Perfil</a></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar
                                 Sesion</a></li>

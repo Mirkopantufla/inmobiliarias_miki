@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.http import Http404, HttpResponseForbidden
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.models import User
 from .models import Inmueble, Profile, ContactForm, ContactArrendatario
@@ -316,6 +316,15 @@ def eliminar_inmueble(request, inmueble_id):
     inmueble = Inmueble.objects.get(id=inmueble_id)
     inmueble.delete()
     return redirect('/gestionar-inmuebles/')
+
+
+@login_required(login_url='/login/')
+def visualizar_mensaje(request, id, inmueble_id):
+    inmueble = ContactArrendatario.objects.get(id=id)
+    inmueble.visto = True
+    inmueble.save()
+
+    return redirect(f'/detalle-inmueble/{inmueble_id}/')
 
 
 def not_found(request):

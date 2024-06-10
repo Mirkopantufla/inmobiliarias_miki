@@ -1,4 +1,4 @@
-from .models import Profile
+from .models import Profile, ContactArrendatario
 
 
 def perfil_disponible(request):
@@ -10,3 +10,15 @@ def perfil_disponible(request):
         profile = None
 
     return {'profile': profile}
+
+
+def mensajes_disponibles(request):
+    user = request.user
+    mensajes = None
+
+    try:
+        mensajes = ContactArrendatario.objects.filter(id_arrendador=user).all()
+    except:
+        mensajes = None
+
+    return {'mensajes': mensajes}

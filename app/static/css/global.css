@@ -41,6 +41,20 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+.punto-rojo {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 0, 0, 0.699);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.negro-blanco {
+    filter: invert(1);
+}
+
 .footer {
     background-color: #3C3D4F;
 }

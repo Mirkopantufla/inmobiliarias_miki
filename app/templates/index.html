@@ -7,7 +7,7 @@
     <div class="p-5">
         <div class="row p-2 background-opacity text-center">
             <h2 class="py-3 bg-body-tertiary">Explora algunas opciones</h2>
-            <div class="row d-flex py-4">
+            <div class="row d-flex justify-content-center py-3">
                 <h4>Casas</h4>
                 {% for inmueble in inmuebles %}
                 {% if inmueble.tipo_inmueble.descripcion == 'Casa' %}
@@ -32,13 +32,13 @@
                 {% endif %}
                 {% endfor %}
             </div>
-            <div class="row">
+            <div class="row d-flex justify-content-center py-3">
                 <h4>Departamentos</h4>
                 {% for inmueble in inmuebles %}
                 {% if inmueble.tipo_inmueble.descripcion == 'Departamento' %}
                 <div class="card m-2 p-0" style="width: 200px;">
                     <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
-                        <div class="card-body text-center">
+                        <div class="card-body py-2">
                             <h5 class="card-title text-center ellipsed-title text-dark">
                                 {{inmueble.nombre}}
                             </h5>
@@ -57,13 +57,13 @@
                 {% endif %}
                 {% endfor %}
             </div>
-            <div class="row d-flex">
+            <div class="row d-flex justify-content-center py-3">
                 <h4>Parcelas</h4>
                 {% for inmueble in inmuebles %}
                 {% if inmueble.tipo_inmueble.descripcion == 'Parcela' %}
                 <div class="card m-2 p-0" style="width: 200px;">
                     <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
-                        <div class="card-body text-center">
+                        <div class="card-body py-2">
                             <h5 class="card-title text-center ellipsed-title text-dark">
                                 {{inmueble.nombre}}
                             </h5>
