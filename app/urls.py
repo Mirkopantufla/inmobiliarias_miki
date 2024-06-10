@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import indice, register, logout_view, profile, update_profile, acerca, contacto, CustomPasswordChangeView, CustomLoginView, CustomPasswordChangeDoneView
+from .views import indice, register, exito, logout_view, profile, actualizar_prefil, acerca, gestion_inmueble, explorar_inmuebles, detalle_inmueble, contacto, contacto_arrendador, not_found, registrar_inmueble, modificar_inmueble, eliminar_inmueble, CustomPasswordChangeView, CustomLoginView, CustomPasswordChangeDoneView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 urlpatterns = [
@@ -9,8 +9,21 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('profile/', profile, name='profile'),
     path('acerca/', acerca, name='acerca'),
+    path('exito/', exito, name='exito'),
     path('contacto/', contacto, name='contacto'),
-    path('update_profile/', update_profile, name='update_profile'),
+    path('not-found/', not_found, name='not_found'),
+    path('gestionar-inmuebles/', gestion_inmueble, name='gestionar_inmuebles'),
+    path('actualizar-perfil/', actualizar_prefil, name='actualizar_prefil'),
+    path('explorar-inmuebles/', explorar_inmuebles, name='explorar_inmuebles'),
+    path('registrar-inmueble/', registrar_inmueble, name='registrar_inmueble'),
+    path('detalle-inmueble/<int:inmueble_id>/',
+         detalle_inmueble, name='detalle_inmueble'),
+    path('contactar-arrendador/<int:id_inmueble>/<int:id_arrendador>/',
+         contacto_arrendador, name='contacto_arrendador'),
+    path('actualizar-inmueble/<int:inmueble_id>/',
+         modificar_inmueble, name='update_inmueble'),
+    path('eliminar-inmueble/<int:inmueble_id>/',
+         eliminar_inmueble, name='eliminar_inmueble'),
     path('password-change/', CustomPasswordChangeView.as_view(),
          name='password_change'),
     path('password_change/success/', CustomPasswordChangeDoneView.as_view(),

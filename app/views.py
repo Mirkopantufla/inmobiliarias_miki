@@ -1,8 +1,9 @@
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.http import Http404, HttpResponseForbidden
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.models import User
-from .models import Inmueble, Profile, ContactForm
-from .forms import CustomUserCreationForm, ProfileCreationForm, CustomPasswordChangeForm, ContactFormModelForm, CustomAuthenticationForm, UserUpdateForm
+from .models import Inmueble, Profile, ContactForm, ContactArrendatario
+from .forms import CustomUserCreationForm, ProfileCreationForm, CustomPasswordChangeForm, ContactFormModelForm, CustomAuthenticationForm, UserUpdateForm, InmuebleForm, ContactArrendatarioForm
 from django.contrib.auth.views import PasswordChangeView, LoginView, PasswordChangeDoneView
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -36,6 +37,10 @@ def indice(request):
     return render(request, 'index.html', context)
 
 
+def exito(request):
+    return render(request, 'exito.html')
+
+
 def acerca(request):
     return render(request, 'acerca.html')
 
@@ -55,6 +60,33 @@ def contacto(request):
     context = {'form': form}
 
     return render(request, 'contacto.html', context)
+
+
+def contacto_arrendador(request, id_inmueble, id_arrendador):
+    arrendatario = request.user
+    inmueble = Inmueble.objects.get(id=id_inmueble)
+    arrendador = User.objects.get(id=id_arrendador)
+
+    if request.method == 'POST':
+        formulario_contacto = ContactArrendatarioForm(request.POST)
+        # chequear que los datos son validos
+        if formulario_contacto.is_valid():
+            # Creamos los datos del formulario
+            oferta = formulario_contacto.cleaned_data['oferta']
+            mensaje = formulario_contacto.cleaned_data['mensaje']
+
+            datos = ContactArrendatario(
+                id_arrendador=arrendador,
+                id_arrendatario=arrendatario,
+                id_inmueble=inmueble,
+                oferta=oferta,
+                mensaje=mensaje,
+            )
+
+            datos.save()
+            return HttpResponseRedirect('/exito/')
+    else:
+        formulario_contacto = ContactArrendatarioForm()
 
 
 def register(request):
@@ -77,6 +109,64 @@ def register(request):
             data['form'] = user_creation_form
 
     return render(request, 'registration/register.html', data)
+
+
+@login_required(login_url='/login/')
+def registrar_inmueble(request):
+    user = request.user
+    if request.method == "POST":
+        formulario_inmueble = InmuebleForm(request.POST)
+        if formulario_inmueble.is_valid():
+            nombre = formulario_inmueble.cleaned_data['nombre']
+            descripcion = formulario_inmueble.cleaned_data['descripcion']
+            metros_cuadrados_terreno = formulario_inmueble.cleaned_data['metros_cuadrados_terreno']
+            metros_cuadrados_construidos = formulario_inmueble.cleaned_data[
+                'metros_cuadrados_construidos']
+            cantidad_estacionamientos = formulario_inmueble.cleaned_data[
+                'cantidad_estacionamientos']
+            cantidad_habitaciones = formulario_inmueble.cleaned_data['cantidad_habitaciones']
+            cantidad_banios = formulario_inmueble.cleaned_data['cantidad_banios']
+            precio_mensual = formulario_inmueble.cleaned_data['precio_mensual']
+            direccion = formulario_inmueble.cleaned_data['direccion']
+            region = formulario_inmueble.cleaned_data['region']
+            comuna = formulario_inmueble.cleaned_data['comuna']
+            tipo_inmueble = formulario_inmueble.cleaned_data['tipo_inmueble']
+
+            datos = Inmueble(
+                nombre=nombre,
+                descripcion=descripcion,
+                metros_cuadrados_terreno=metros_cuadrados_terreno,
+                metros_cuadrados_construidos=metros_cuadrados_construidos,
+                cantidad_estacionamientos=cantidad_estacionamientos,
+                cantidad_habitaciones=cantidad_habitaciones,
+                cantidad_banios=cantidad_banios,
+                precio_mensual=precio_mensual,
+                direccion=direccion,
+                comuna=comuna,
+                region=region,
+                tipo_inmueble=tipo_inmueble,
+                id_usuario=user,
+            )
+            datos.save()
+            return HttpResponseRedirect('/gestionar-inmuebles/')
+    else:
+        formulario_inmueble = InmuebleForm()
+        context = {
+            'title': 'Agregar Inmueble',
+            'formulario_inmueble': formulario_inmueble,
+        }
+
+        return render(request, 'registrar_inmueble.html', context)
+
+
+@login_required(login_url='/login/')
+def gestion_inmueble(request):
+    user = request.user
+    inmuebles = Inmueble.objects.filter(id_usuario=user.id)
+    context = {
+        'inmuebles': inmuebles
+    }
+    return render(request, 'gestionar_inmuebles.html', context)
 
 
 @login_required(login_url='/login/')
@@ -107,9 +197,10 @@ def profile(request):
 
 
 @login_required(login_url='/login/')
-def update_profile(request):
+def actualizar_prefil(request):
     user = request.user
     profile = Profile.objects.filter(usuario=user).first()
+
     if request.method == 'POST':
 
         formulario_usuario = UserUpdateForm(
@@ -129,10 +220,106 @@ def update_profile(request):
         formulario_usuario = CustomUserCreationForm(instance=user)
         formulario_perfil = ProfileCreationForm(instance=profile)
 
-    return render(request, 'update_profile.html', {
+    return render(request, 'actualizar_prefil.html', {
         'formulario_usuario': formulario_usuario,
         'formulario_perfil': formulario_perfil
     })
+
+
+@login_required(login_url='/login/')
+def explorar_inmuebles(request):
+    user = request.user
+    profile = Profile.objects.get(usuario=user)
+    context = {}
+    if request.method == 'GET':
+        if profile.tipo_usuario.descripcion == 'Arrendatario':
+            inmuebles = Inmueble.objects.all()
+
+            context = {
+                'title': 'Buscar arriendos',
+                'inmuebles': inmuebles
+            }
+        else:
+            context = {
+                'title': 'Como Arrendatario no puedes ver esta vista',
+                'inmuebles': None
+            }
+
+    return render(request, 'explorar_inmuebles.html', context)
+
+
+@login_required(login_url='/login/')
+def detalle_inmueble(request, inmueble_id):
+    user = request.user
+    profile = Profile.objects.get(usuario=user)
+    inmueble = None
+    formulario_contacto = ContactArrendatarioForm()
+
+    try:
+        inmueble = get_object_or_404(Inmueble, id=inmueble_id)
+    except Http404:
+        return redirect('/not-found/')
+
+    if profile.tipo_usuario.descripcion == 'Arrendatario':
+        context = {
+            'title': 'Detalles Inmueble',
+            'formulario_contacto': formulario_contacto,
+            'inmueble': inmueble
+        }
+    else:
+        mensajes = ContactArrendatario.objects.filter(
+            id_arrendador=user.id, id_inmueble=inmueble_id)
+        context = {
+            'title': 'Detalles Inmueble',
+            'mensajes': mensajes,
+            'inmueble': inmueble
+        }
+
+    return render(request, 'detalle_inmueble.html', context)
+
+
+@login_required(login_url='/login/')
+def modificar_inmueble(request, inmueble_id):
+    user = request.user
+    inmueble = None
+    try:
+        inmueble = get_object_or_404(Inmueble, id=inmueble_id)
+    except Http404:
+        return redirect('/not-found/')
+
+    if request.method == "POST":
+        formulario_inmueble = InmuebleForm(request.POST)
+        if formulario_inmueble.is_valid():
+            inmueble = Inmueble.objects.filter(id=inmueble_id).update(
+                **formulario_inmueble.cleaned_data)
+        return HttpResponseRedirect('/gestionar-inmuebles/')
+
+    if request.method == "GET":
+        if inmueble.id_usuario.id == user.id:
+            formulario_inmueble = InmuebleForm(instance=inmueble)
+            context = {
+                'title': 'Editar Inmueble',
+                'formulario_inmueble': formulario_inmueble,
+            }
+        else:
+            formulario_inmueble = 'Inmueble no encontrado'
+            context = {
+                'title': 'Usted no tiene acceso a esta propiedad',
+                'formulario_inmueble': None,
+            }
+
+    return render(request, 'registrar_inmueble.html', context)
+
+
+@login_required(login_url='/login/')
+def eliminar_inmueble(request, inmueble_id):
+    inmueble = Inmueble.objects.get(id=inmueble_id)
+    inmueble.delete()
+    return redirect('/gestionar-inmuebles/')
+
+
+def not_found(request):
+    return render(request, 'not_found.html')
 
 
 class MiVistaProtegida(LoginRequiredMixin, TemplateView):

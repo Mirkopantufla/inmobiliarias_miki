@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<main class="container py-5">
+    <div class="row text-center mb-4">
+        <h1>{{ title }}</h1>
+    </div>
+    <div class="row p-5 background-opacity">
+        {% if formulario_inmueble != None %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="offset-2 col-8 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.nombre.label_tag }}</h5>
+                    {{ formulario_inmueble.nombre }}
+                    {% if formulario_inmueble.nombre.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.nombre.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-2 col-8 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.descripcion.label_tag }}</h5>
+                    {{ formulario_inmueble.descripcion }}
+                    {% if formulario_inmueble.descripcion.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.descripcion.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.metros_cuadrados_terreno.label_tag }}</h5>
+                    {{ formulario_inmueble.metros_cuadrados_terreno }}
+                    {% if formulario_inmueble.metros_cuadrados_terreno.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.metros_cuadrados_terreno.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-6 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.metros_cuadrados_construidos.label_tag }}</h5>
+                    {{ formulario_inmueble.metros_cuadrados_construidos }}
+                    {% if formulario_inmueble.metros_cuadrados_construidos.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.metros_cuadrados_construidos.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.cantidad_estacionamientos.label_tag }}</h5>
+                    {{ formulario_inmueble.cantidad_estacionamientos }}
+                    {% if formulario_inmueble.cantidad_estacionamientos.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.cantidad_estacionamientos.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-4 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.cantidad_habitaciones.label_tag }}</h5>
+                    {{ formulario_inmueble.cantidad_habitaciones }}
+                    {% if formulario_inmueble.cantidad_habitaciones.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.cantidad_habitaciones.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-4 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.cantidad_banios.label_tag }}</h5>
+                    {{ formulario_inmueble.cantidad_banios }}
+                    {% if formulario_inmueble.cantidad_banios.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.cantidad_banios.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.tipo_inmueble.label_tag }}</h5>
+                    {{ formulario_inmueble.tipo_inmueble }}
+                    {% if formulario_inmueble.tipo_inmueble.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.tipo_inmueble.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-6 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.precio_mensual.label_tag }}</h5>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        {{ formulario_inmueble.precio_mensual }}
+                    </div>
+                    {% if formulario_inmueble.precio_mensual.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.precio_mensual.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.direccion.label_tag }}</h5>
+                    {{ formulario_inmueble.direccion }}
+                    {% if formulario_inmueble.direccion.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.direccion.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-4 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.region.label_tag }}</h5>
+                    {{ formulario_inmueble.region }}
+                    {% if formulario_inmueble.region.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.region.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-4 m-auto p-2">
+                    <h5 class="my-2">{{ formulario_inmueble.comuna.label_tag }}</h5>
+                    {{ formulario_inmueble.comuna }}
+                    {% if formulario_inmueble.comuna.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.comuna.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary w-50">Agregar</button>
+            </div>
+        </form>
+        {% else %}
+        <div class="text-center">
+            <h1 class="text-danger">No tiene acceso permitido</h1>
+        </div>
+        {% endif %}
+    </div>
+</main>
+
+{% endblock content %}

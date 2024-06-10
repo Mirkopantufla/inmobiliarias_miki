@@ -25,28 +25,45 @@
                 <h5 class="me-3 mb-1">Email:</h5>
                 <span>{{ user.email }}</span>
             </div>
+
+            {% if profile.rut != '' and profile.rut != None %}
             <div class="d-flex justify-content-center align-items-center m-1">
                 <h5 class="me-3 mb-1">Rut:</h5>
                 <span>{{ profile.rut }}-{{ profile.dv }}</span>
             </div>
+            {% endif %}
+
+            {% if profile.direccion != '' and profile.direccion != None %}
             <div class="d-flex justify-content-center align-items-center m-1">
                 <h5 class="me-3 mb-1">Direccion:</h5>
+
                 <span>{{ profile.direccion }}</span>
             </div>
+            {% endif %}
+
+            {% if profile.telefono != '' and profile.telefono != None %}
             <div class="d-flex justify-content-center align-items-center m-1">
-                <h5 class="me-3 mb-1">Rut:</h5>
+                <h5 class="me-3 mb-1">Telefono:</h5>
                 <span>{{ profile.telefono }}</span>
             </div>
+            {% endif %}
+
+            {% if profile.region.nombre != '' and profile.region.nombre != None %}
             <div class="d-flex justify-content-center align-items-center m-1">
                 <h5 class="me-3 mb-1">Region:</h5>
                 <span>{{ profile.region.nombre }}</span>
             </div>
+            {% endif %}
+
+            {% if profile.comuna.nombre != '' and profile.comuna.nombre != None %}
             <div class="d-flex justify-content-center align-items-center m-1">
                 <h5 class="me-3 mb-1">Comuna:</h5>
                 <span>{{ profile.comuna.nombre }}</span>
             </div>
+            {% endif %}
+
             <div class="text-center my-3">
-                <a class="btn btn-primary" href="{% url 'update_profile'%}">Modificar Perfil</a>
+                <a class="btn btn-primary" href="{% url 'actualizar_prefil'%}">Modificar Perfil</a>
             </div>
         </div>
 

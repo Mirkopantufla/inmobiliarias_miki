@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<main class="container py-5">
+    <div class="row text-center mb-4">
+        <h1>{{ title }}</h1>
+    </div>
+    <div class="row p-2 background-opacity">
+        {% for inmueble in inmuebles %}
+        <div class="col-4">
+            <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
+                <div class="card my-2">
+                    <div class="card-body">
+                        <h5 class="card-title text-center ellipsed-title">
+                            {{inmueble.nombre}}
+                        </h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center">
+                                <img src="{% static '/img/area.png' %}" alt="">
+                                <h6 class="px-2">m² Terreno:</h6>
+                                <span>
+                                    {{inmueble.metros_cuadrados_terreno}}
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <img src="{% static '/img/area.png' %}" alt="">
+                                <h6 class="px-2">m² Construidos:</h6>
+                                <span>
+                                    {{inmueble.metros_cuadrados_construidos}}
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <img src="{% static '/img/parking-area.png' %}" alt="">
+                                <h6 class="px-2">N° Estacionamiento:</h6>
+                                <span>
+                                    {{inmueble.cantidad_estacionamientos}}
+                                </span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <img src="{% static '/img/bathroom.png' %}" alt="">
+                                <h6 class="px-2">N° Baños:</h6>
+                                <span>
+                                    {{inmueble.cantidad_banios}}
+                                </span>
+                            </li>
+                        </ul>
+                        <p class="card-text p-3">
+                            {{inmueble.descripcion}}
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+{% endblock content %}

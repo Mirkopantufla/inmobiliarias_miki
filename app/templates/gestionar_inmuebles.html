@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<main class="container py-5">
+    <div class="row text-center mb-4">
+        <h1>Gestiona tus inmuebles</h1>
+    </div>
+    <div class="row p-2 background-opacity my-3">
+        <a class="btn btn-primary" href="{% url 'registrar_inmueble'%}">Agregar nuevo inmueble</a>
+    </div>
+    <div class="row p-2 background-opacity">
+        {% for inmueble in inmuebles %}
+        <div class="col-4">
+            <div class="card my-2">
+                <div class="card-body">
+                    <h5 class="card-title text-center ellipsed-title">
+                        {{inmueble.nombre}}
+                    </h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="{% static '/img/area.png' %}" alt="">
+                            <h6 class="px-2 m-0">m² Terreno:</h6>
+                            <span>
+                                {{inmueble.metros_cuadrados_terreno}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="{% static '/img/area.png' %}" alt="">
+                            <h6 class="px-2 m-0">m² Construidos:</h6>
+                            <span>
+                                {{inmueble.metros_cuadrados_construidos}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="{% static '/img/parking-area.png' %}" alt="">
+                            <h6 class="px-2 m-0">N° Estacionamiento:</h6>
+                            <span>
+                                {{inmueble.cantidad_estacionamientos}}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <img src="{% static '/img/bathroom.png' %}" alt="">
+                            <h6 class="px-2 m-0">N° Baños:</h6>
+                            <span>
+                                {{inmueble.cantidad_banios}}
+                            </span>
+                        </li>
+                    </ul>
+                    <p class="card-text p-3">
+                        {{inmueble.descripcion}}
+                    </p>
+                    <div class="d-flex justify-content-evenly">
+                        <a class="btn btn-warning" href="/detalle-inmueble/{{inmueble.id}}/">Ver</a>
+                        <a class="btn btn-primary" href="/actualizar-inmueble/{{inmueble.id}}/">Editar</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal" data-id="{{ inmueble.id }}">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+<!-- Modal, la cual aparecera en caso de querer eliminar algun inmueble -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Eliminar Objeto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este inmueble?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form method="post" id="deleteForm">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script para el funcionamiento de la modal -->
+<script>
+
+    var deleteModal = document.getElementById('deleteModal');
+
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var idInmueble = button.getAttribute('data-id');
+        var form = document.getElementById('deleteForm');
+        form.action = '/eliminar-inmueble/' + idInmueble + '/';
+    });
+</script>
+
+{% endblock content %}

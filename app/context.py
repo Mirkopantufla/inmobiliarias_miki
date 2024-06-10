@@ -8,4 +8,5 @@ def perfil_disponible(request):
         profile = Profile.objects.get(usuario=user)
     except:
         profile = None
+
     return {'profile': profile}

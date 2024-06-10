@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Profile, ContactForm
+from .models import Profile, ContactForm, Inmueble, ContactArrendatario
 
 
 class ContactFormModelForm(ModelForm):
@@ -22,6 +22,65 @@ class ContactFormModelForm(ModelForm):
             'customer_email': 'Correo',
             'customer_name': 'Nombre',
             'message': 'Mensaje',
+        }
+
+
+class ContactArrendatarioForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ContactArrendatarioForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs = {
+                'class': 'form-control'
+            }
+
+    class Meta:
+        model = ContactArrendatario
+        fields = ['oferta', 'mensaje']
+        labels = {
+            'oferta': 'Oferta',
+            'mensaje': 'Mensaje',
+        }
+
+
+class InmuebleForm(ModelForm):
+
+    class Meta:
+
+        model = Inmueble
+        fields = (
+            'nombre', 'descripcion', 'metros_cuadrados_terreno',
+            'metros_cuadrados_construidos', 'cantidad_estacionamientos', 'cantidad_habitaciones',
+            'cantidad_banios', 'precio_mensual', 'direccion',
+            'region', 'comuna', 'tipo_inmueble'
+        )
+        labels = {
+            'nombre': 'Titulo descriptivo',
+            'descripcion': 'Descripción',
+            'metros_cuadrados_terreno': 'm2 Terreno',
+            'metros_cuadrados_construidos': 'm2 Construidos',
+            'cantidad_estacionamientos': 'Cantidad de estacionamientos',
+            'cantidad_habitaciones': 'Cantidad habitaciones',
+            'cantidad_banios': 'Cantidad de baños',
+            'precio_mensual': 'Precio mensual',
+            'direccion': 'Direccion',
+            'region': 'Region',
+            'comuna': 'Comuna',
+            'tipo_inmueble': 'Tipo del inmueble',
+        }
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+            'metros_cuadrados_terreno': forms.NumberInput(attrs={'class': 'form-control'}),
+            'metros_cuadrados_construidos': forms.NumberInput(attrs={'class': 'form-control'}),
+            'cantidad_estacionamientos': forms.NumberInput(attrs={'class': 'form-control'}),
+            'cantidad_habitaciones': forms.NumberInput(attrs={'class': 'form-control'}),
+            'cantidad_banios': forms.NumberInput(attrs={'class': 'form-control'}),
+            'precio_mensual': forms.NumberInput(attrs={'class': 'form-control'}),
+            'direccion': forms.TextInput(attrs={'class': 'form-control'}),
+            'region': forms.Select(attrs={'class': 'form-select'}),
+            'comuna': forms.Select(attrs={'class': 'form-select'}),
+            'tipo_inmueble': forms.Select(attrs={'class': 'form-select'}),
         }
 
 
@@ -74,7 +133,7 @@ class CustomUserCreationForm(UserCreationForm):
         }
 
 
-class UserUpdateForm(forms.ModelForm):
+class UserUpdateForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
@@ -86,6 +145,7 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name',
                   'email']
+
         labels = {
             'first_name': 'Primer Nombre',
             'last_name': 'Apellido Paterno',
@@ -93,40 +153,12 @@ class UserUpdateForm(forms.ModelForm):
         }
 
 
-class ProfileCreationForm(forms.ModelForm):
+class ProfileCreationForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileCreationForm, self).__init__(*args, **kwargs)
-        self.fields['segundo_nombre'].widget.attrs = {
-            'class': 'form-control',
-        }
-        self.fields['apellido_materno'].widget.attrs = {
-            'class': 'form-control',
-        }
-        self.fields['rut'].widget.attrs = {
-            'class': 'form-control',
-        }
-        self.fields['dv'].widget.attrs = {
-            'class': 'form-control',
-        }
-        self.fields['direccion'].widget.attrs = {
-            'class': 'form-control',
-        }
-        self.fields['telefono'].widget.attrs = {
-            'class': 'form-control',
-        }
-        self.fields['region'].widget.attrs = {
-            'class': 'form-select',
-            'aria-label': 'Regiones'
-        }
-        self.fields['comuna'].widget.attrs = {
-            'class': 'form-select',
-            'aria-label': 'Comunas'
-        }
-        self.fields['tipo_usuario'].widget.attrs = {
-            'class': 'form-select',
-            'aria-label': 'Tipo_usuario'
-        }
+        self.fields['segundo_nombre'].required = False
+        self.fields['apellido_materno'].required = False
 
     class Meta:
         model = Profile
@@ -142,4 +174,15 @@ class ProfileCreationForm(forms.ModelForm):
             'region': 'Escoga una Región',
             'comuna': 'Escoga una Comuna',
             'tipo_usuario': 'Tipo de Usuario'
+        }
+        widgets = {
+            'segundo_nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'apellido_materno': forms.TextInput(attrs={'class': 'form-control'}),
+            'rut': forms.NumberInput(attrs={'class': 'form-control'}),
+            'dv': forms.TextInput(attrs={'class': 'form-control'}),
+            'direccion': forms.TextInput(attrs={'class': 'form-control'}),
+            'telefono': forms.NumberInput(attrs={'class': 'form-control'}),
+            'region': forms.Select(attrs={'class': 'form-select'}),
+            'comuna': forms.Select(attrs={'class': 'form-select'}),
+            'tipo_usuario': forms.Select(attrs={'class': 'form-select'}),
         }

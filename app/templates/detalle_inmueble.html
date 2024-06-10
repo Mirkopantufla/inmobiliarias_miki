@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<main class="container py-5">
+    <div class="row text-center mb-4">
+        <h1>{{ title }}</h1>
+    </div>
+    <div class="card p-2">
+        <div class="card-body py-3 px-5">
+            <div class="row mb-2">
+                <div class="col-12 text-center">
+                    <h2 class="card-title m-0">{{inmueble.nombre}}</h2>
+                    <h5 class="fw-light fst-italic">{{inmueble.tipo_inmueble.descripcion}}</h5>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                </div>
+            </div>
+            <div class="row border-bottom border-top">
+                <div class="col-4 text-center p-3">
+                    <img height="32px" width="32px" src="{% static '/img/icon-location-mid.png' %}" alt="">
+                    <h5 class="px-2">Direccion :</h5>
+                    <span class="fs-6">
+                        {{inmueble.direccion}}, {{inmueble.comuna.nombre}}, {{inmueble.region.nombre}}
+                    </span>
+                </div>
+                <div class="col-4 text-center border-start border-end p-3">
+                    <img height="32px" width="32px" src="{% static '/img/icon-area-mid.png' %}" alt="">
+                    <h5 class="px-2">m² Terreno:</h5>
+                    <span class="fs-5">
+                        {{inmueble.metros_cuadrados_terreno}}
+                    </span>
+                </div>
+                <div class="col-4 text-center p-3">
+                    <img height="32px" width="32px" src="{% static '/img/icon-area-mid.png' %}" alt="">
+                    <h5 class="px-2">m² Construidos:</h5>
+                    <span class="fs-5">
+                        {{inmueble.metros_cuadrados_construidos}}
+                    </span>
+                </div>
+            </div>
+            <div class="row border-bottom mb-2">
+                <div class="col-4 text-center p-3">
+                    <img height="32px" width="32px" src="{% static '/img/icon-parking-area-mid.png' %}" alt="">
+                    <h5 class="px-2">Estacionamientos:</h5>
+                    <span class="fs-5">
+                        {{inmueble.cantidad_estacionamientos}}
+                    </span>
+                </div>
+                <div class="col-4 text-center border-start border-end p-3">
+                    <img height="32px" width="32px" src="{% static '/img/icon-bed-mid.png' %}" alt="">
+                    <h5 class="px-2">Habitaciones:</h5>
+                    <span class="fs-5">
+                        {{inmueble.cantidad_habitaciones}}
+                    </span>
+                </div>
+                <div class="col-4 text-center p-3">
+                    <img height="32px" width="32px" src="{% static '/img/icon-bathroom-mid.png' %}" alt="">
+                    <h5 class="px-2">Baños:</h5>
+                    <span class="fs-5">
+                        {{inmueble.cantidad_banios}}
+                    </span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 p-0">
+                    <p class="card-text p-3">
+                        {{inmueble.descripcion}}
+                    </p>
+                </div>
+            </div>
+            <div class="row mb-2 text-center">
+                <span class="fs-4">Desde {{ inmueble.format_price }} el arriendo mensual</span>
+            </div>
+
+            <div class="row">
+                {% if profile.tipo_usuario.descripcion == 'Arrendatario' %}
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactoArrendadorModal"
+                    data-id="{{ inmueble.id }}/{{ inmueble.id_usuario.id }}">
+                    Contactar con {{inmueble.id_usuario.first_name}}
+                </button>
+                {% elif profile.tipo_usuario.descripcion == 'Arrendador' %}
+                <div class="bg-body-secondary">
+                    <h2 class="text-center py-2">Mensajes</h2>
+                    {% for mensaje in mensajes %}
+                    <div class="col-12 p-3 d-flex justify-content-between border-4 border-black border-top">
+                        <h4>{{mensaje.id_arrendatario.first_name}}</h4>
+                        <p class="fs-5">{{mensaje.mensaje}}</p>
+                        <span class="fs-5">{{mensaje.format_price}}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+<div class="modal fade" id="contactoArrendadorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Enviar mensaje a
+                    {{inmueble.id_usuario.first_name}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="contactoArrendatario">
+                    {% csrf_token %}
+                    <div class="m-auto p-2">
+                        <label class="fs-5" for="">{{ formulario_contacto.oferta.label_tag }}</label>
+                        {{ formulario_contacto.oferta }}
+                        {% if formulario_contacto.oferta.errors %}
+                        <div class="error">
+                            {% for error in formulario_contacto.oferta.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="m-auto p-2">
+                        <label class="fs-5" for="">{{ formulario_contacto.mensaje.label_tag }}</label>
+                        {{ formulario_contacto.mensaje }}
+                        {% if formulario_contacto.mensaje.errors %}
+                        <div class="error">
+                            {% for error in formulario_contacto.mensaje.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="sumbit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const contactoArrendadorModal = document.getElementById('contactoArrendadorModal');
+
+    contactoArrendadorModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const idInmuebleArrendador = button.getAttribute('data-id');
+        const formularioContacto = document.getElementById('contactoArrendatario');
+        formularioContacto.action = '/contactar-arrendador/' + idInmuebleArrendador + '/';
+    })
+
+</script>
+
+{% endblock content %}

@@ -1,28 +1,88 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-<main class="container">
-    <div class="row py-5">
-        <h1 class="text-center">Inmuebles Miki</h1>
-        {% for inmueble in inmuebles %}
-        <div class="col-4">
-            <div class="card my-2">
-                <div class="card-body">
-                    <h5 class="card-title text-center ellipsed-title">
-                        {{inmueble.nombre}}
-                    </h5>
-                    <p class="card-text p-1">
-                        {{inmueble.description}}
-                    </p>
-                    <!-- {% if user.is_authenticated %}
-                    <a href="/descripcion/{{flan.flan_uuid}}/" class="btn btn-flans w-100 ellipsed-title">
-                        Receta {{flan.name}}
+
+<main class="container-fluid pb-5">
+    {% include 'includes/header.html' %}
+    <div class="p-5">
+        <div class="row p-2 background-opacity text-center">
+            <h2 class="py-3 bg-body-tertiary">Explora algunas opciones</h2>
+            <div class="row d-flex py-4">
+                <h4>Casas</h4>
+                {% for inmueble in inmuebles %}
+                {% if inmueble.tipo_inmueble.descripcion == 'Casa' %}
+                <div class="card m-2 p-0" style="width: 200px;">
+                    <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
+                        <div class="card-body py-2">
+                            <h5 class="card-title text-center ellipsed-title text-dark">
+                                {{inmueble.nombre}}
+                            </h5>
+                            <ul class="list-group list-group-flush border-top">
+                                <li class="list-group-item d-flex px-0 justify-content-start align-items-center">
+                                    <img width="22px" height="22px" src="{% static '/img/icon-bed-mid.png' %}" alt="">
+                                    <h6 class="px-2">Habitaciones:</h6>
+                                    <span>
+                                        {{inmueble.cantidad_habitaciones}}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </a>
-                    {% endif %} -->
                 </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row">
+                <h4>Departamentos</h4>
+                {% for inmueble in inmuebles %}
+                {% if inmueble.tipo_inmueble.descripcion == 'Departamento' %}
+                <div class="card m-2 p-0" style="width: 200px;">
+                    <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-center ellipsed-title text-dark">
+                                {{inmueble.nombre}}
+                            </h5>
+                            <ul class="list-group list-group-flush border-top">
+                                <li class="list-group-item d-flex px-0 justify-content-start align-items-center">
+                                    <img width="22px" height="22px" src="{% static '/img/icon-bed-mid.png' %}" alt="">
+                                    <h6 class="px-2">Habitaciones:</h6>
+                                    <span>
+                                        {{inmueble.cantidad_habitaciones}}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row d-flex">
+                <h4>Parcelas</h4>
+                {% for inmueble in inmuebles %}
+                {% if inmueble.tipo_inmueble.descripcion == 'Parcela' %}
+                <div class="card m-2 p-0" style="width: 200px;">
+                    <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-center ellipsed-title text-dark">
+                                {{inmueble.nombre}}
+                            </h5>
+                            <ul class="list-group list-group-flush border-top">
+                                <li class="list-group-item d-flex px-0 justify-content-start align-items-center">
+                                    <img width="22px" height="22px" src="{% static '/img/icon-bed-mid.png' %}" alt="">
+                                    <h6 class="px-2">Habitaciones:</h6>
+                                    <span>
+                                        {{inmueble.cantidad_habitaciones}}
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
 </main>
 {% endblock content %}

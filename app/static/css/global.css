@@ -4,16 +4,60 @@
     --base-flan-color: #71738F;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
 body {
     background-color: var(--base-flan-color);
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+main {
+    /* Calculo el alto del navbar y el alto del footer menos el 100% del view port */
+    min-height: calc(100vh - 188px);
+}
+
+/* Quitar flechas para aumentar a disminuir los inputs tipo number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Quitar flechas para aumentar a disminuir los inputs tipo number */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 .footer {
     background-color: #3C3D4F;
 }
 
+.custom-link {
+    text-decoration: none;
+}
+
 .background-opacity {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+}
+
+.background-filter {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
 }
 
 .campo input:focus {
@@ -47,6 +91,14 @@ body {
     -webkit-box-orient: vertical;
 }
 
+.custom-header {
+    min-height: calc(100vh - 56px);
+    max-width: 100%;
+    background-image: url('../img/casa-bonita-minorca.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 /* Estructura bootstrap */
 
 .custom-nav-width {
@@ -66,6 +118,14 @@ body {
     .custom-nav-item {
         margin-left: auto;
     }
+}
+
+/* Google fonts */
+.dm-serif-text-regular {
+    font-size: 62px;
+    font-family: "DM Serif Text", serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 /* Sobre escritura bootstrap */

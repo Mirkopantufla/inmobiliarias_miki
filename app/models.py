@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.db import models
+import locale
 import uuid
 
 # Create your models here.
@@ -14,39 +15,31 @@ class Profile(models.Model):
         User, related_name='usuario', on_delete=models.CASCADE)
     segundo_nombre = models.CharField(max_length=100)
     apellido_materno = models.CharField(max_length=100)
-    rut = models.IntegerField(
-        validators=[
-            MinValueValidator(1),
-            MaxValueValidator(999999999)
-        ],
-        blank=True
-    )  # xxx.xxx.xxx (En caso de ser empresa)
-    dv = models.SmallIntegerField(
-        validators=[
-            MinValueValidator(1),
-            MaxValueValidator(11)
-        ],
-        blank=True
-    )  # 1-9, K=10, 0=11
+    # xxx.xxx.xxx (En caso de ser empresa)
+    rut = models.IntegerField(null=True, blank=True)
+    dv = models.SmallIntegerField(null=True, blank=True)  # 1-9, K=10, 0=11
     direccion = models.CharField(max_length=300)
     region = models.ForeignKey(
         'Region',
         related_name='usuario',
         on_delete=models.CASCADE,
-        blank=True
+        blank=True,
+        null=True
     )
     comuna = models.ForeignKey(
         'Comuna',
         related_name='usuario',
         on_delete=models.CASCADE,
-        blank=True
+        blank=True,
+        null=True
     )
-    telefono = models.BigIntegerField(null=True)
+    telefono = models.BigIntegerField(null=True, blank=True)
     tipo_usuario = models.ForeignKey(
         'TipoUsuario',
         related_name='usuario',
         on_delete=models.CASCADE,
-        blank=True
+        blank=True,
+        null=True
     )
 
     # Funcion que formatea el digito verificador en caso de ser 10 u 11
@@ -65,12 +58,27 @@ class Profile(models.Model):
     def clean(self):
         super().clean()
 
+        print(self.dv)
+        if self.rut == None:
+            self.dv = None
+
         # Si el metodo clean es instanciado por dv, y es string
         if isinstance(self.dv, str):
+            caracter = self.dv
+            number = 12
+            try:
+                int(caracter)
+                number = int(caracter)
+            except ValueError:
+                print('pase')
+                pass
+
             # Si la letra en minuscula es la k:
-            if self.dv.lower() == 'k':
+            if caracter.lower() == 'k':
                 # Se guarda un 10, representando la k
                 self.dv = 10
+            elif 1 <= number <= 11:
+                self.dv = number
             else:
                 raise ValidationError(
                     {'dv': 'El dígito verificador (dv) debe ser un número del 0-9 o letra "k".'})
@@ -81,7 +89,7 @@ class Profile(models.Model):
                 self.dv = 11
 
         # Consultar de que el dv está en el rango válido después de la conversión
-        if not (1 <= self.dv <= 11):
+        if not (self.dv == None or 1 <= self.dv <= 11):
             raise ValidationError(
                 {'dv': 'El dígito verificador (dv) debe estar entre 1 y 11'})
 
@@ -129,6 +137,15 @@ class Inmueble(models.Model):
         related_name='inmueble',
         on_delete=models.CASCADE
     )
+    id_usuario = models.ForeignKey(
+        User,
+        related_name='inmueble',
+        on_delete=models.CASCADE
+    )
+
+    def format_price(self):
+        locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
+        return locale.currency(self.precio_mensual, grouping=True)
 
     def __str__(self) -> str:
         return f'{self.nombre} / {self.descripcion}'
@@ -169,7 +186,6 @@ class Comuna(models.Model):
 
 
 class ContactForm(models.Model):
-    # No se podra modificar de ninguna manera
     contact_form_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     customer_email = models.EmailField()
     customer_name = models.CharField(max_length=64)
@@ -177,3 +193,23 @@ class ContactForm(models.Model):
 
     def __str__(self):
         return f"{self.customer_email} - Mensaje: {self.message}"
+
+
+class ContactArrendatario(models.Model):
+    id_arrendador = models.ForeignKey(
+        User, related_name='contactoArrendador', on_delete=models.CASCADE)
+    id_arrendatario = models.ForeignKey(
+        User, related_name='contactoArrendatario', on_delete=models.CASCADE)
+    id_inmueble = models.ForeignKey(
+        'Inmueble', related_name='contactoArrendatario', on_delete=models.CASCADE)
+    visto = models.BooleanField(default=False)
+    oferta = models.IntegerField()
+    mensaje = models.TextField(max_length=2000)
+    creacion_registro = models.DateField(auto_now_add=True)
+
+    def format_price(self):
+        locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
+        return locale.currency(self.oferta, grouping=True)
+
+    def __str__(self):
+        return f"{self.id_arrendatario} - Mensaje: {self.mensaje}"
