@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg">
     <div class="container px-0">
         <a class="p-1" href="#">
             <img width="32px" height="32px" src="{% static 'img/house.png' %}" alt="">
@@ -34,7 +34,8 @@
                 </li>
                 {% if user.is_authenticated %}
                 <div class="btn-group custom-nav-item">
-                    <a type="button" class="btn btn-primary d-flex align-items-center" href="{% url 'profile' %}">
+                    <a type="button" class="btn btn-primary primary-bg-miki-color d-flex align-items-center"
+                        href="{% url 'profile' %}">
                         {{user.first_name}}
                     </a>
                     <div class="btn-group dropstart" role="group">
@@ -43,16 +44,22 @@
                                 src="{% static 'img/icon-notification.png' %}" alt="">
                         </button>
                         <ul class="dropdown-menu">
+                            {% if mensajes|length > 0 %}
                             {% for mensaje in mensajes %}
                             <li class="d-flex align-items-center">
                                 {% if mensaje.visto == False %}
-                                <span class="punto-rojo ps-2"></span>
+                                <span class="punto-rojo ms-1"></span>
                                 {% endif %}
                                 <a class="dropdown-item" href="/detalle-inmueble/{{mensaje.id_inmueble.id}}/">
                                     {{mensaje.id_arrendador.first_name}} - {{mensaje.id_inmueble.nombre}}
                                 </a>
                             </li>
                             {% endfor %}
+                            {% else %}
+                            <li class="d-flex align-items-center">
+                                <span class="ps-3">No hay mensajes</span>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
 

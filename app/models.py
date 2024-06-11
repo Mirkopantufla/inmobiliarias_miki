@@ -18,7 +18,7 @@ class Profile(models.Model):
     # xxx.xxx.xxx (En caso de ser empresa)
     rut = models.IntegerField(null=True, blank=True)
     dv = models.SmallIntegerField(null=True, blank=True)  # 1-9, K=10, 0=11
-    direccion = models.CharField(max_length=300)
+    direccion = models.CharField(max_length=300, null=True, blank=True)
     region = models.ForeignKey(
         'Region',
         related_name='usuario',
@@ -38,8 +38,7 @@ class Profile(models.Model):
         'TipoUsuario',
         related_name='usuario',
         on_delete=models.CASCADE,
-        blank=True,
-        null=True
+        default=2
     )
 
     # Funcion que formatea el digito verificador en caso de ser 10 u 11

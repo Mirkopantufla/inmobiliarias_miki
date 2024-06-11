@@ -10,7 +10,7 @@
         <form method="post">
             {% csrf_token %}
             <div class="row">
-                <div class="col-4 m-auto p-2">
+                <div class="col-12 col-sm-6 col-md-4 m-auto p-2">
                     <label class="fs-5" for="">{{ formulario_perfil.tipo_usuario.label_tag }}</label>
                     {{ formulario_perfil.tipo_usuario }}
                     {% if formulario_perfil.tipo_usuario.errors %}
@@ -25,7 +25,7 @@
 
             <div class="row">
                 <!-- Campo Primer Nombre -->
-                <div class="col-6 p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-6 p-2">
                     <label class="fs-5" for="">{{ formulario_usuario.first_name.label_tag }}</label>
                     {{ formulario_usuario.first_name }}
                     {% if formulario_usuario.first_name.errors %}
@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- Campo Segundo Nombre -->
-                <div class="col-6 p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-6 p-2">
                     <label class="fs-5" for="">{{ formulario_perfil.segundo_nombre.label_tag }}</label>
                     {{ formulario_perfil.segundo_nombre }}
                     {% if formulario_perfil.segundo_nombre.errors %}
@@ -53,7 +53,7 @@
 
             <div class="row">
                 <!-- Campo Apellido Paterno -->
-                <div class="col p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-6 p-2">
                     <label class="fs-5" for="">{{ formulario_usuario.last_name.label_tag }}</label>
                     {{ formulario_usuario.last_name }}
                     {% if formulario_usuario.last_name.errors %}
@@ -66,7 +66,7 @@
                 </div>
 
                 <!-- Campo Apellido Materno -->
-                <div class="col p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-6 p-2">
                     <label class="fs-5" for="">{{ formulario_perfil.apellido_materno.label_tag }}</label>
                     {{ formulario_perfil.apellido_materno }}
                     {% if formulario_perfil.apellido_materno.errors %}
@@ -81,7 +81,7 @@
 
             <div class="row">
                 <!-- Campo Rut -->
-                <div class="col-4 p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-4 p-2">
                     <label class="fs-5" for="">{{ formulario_perfil.rut.label_tag }}</label>
                     <div class="input-group">
                         {{ formulario_perfil.rut }}
@@ -105,7 +105,7 @@
                 </div>
 
                 <!-- Campo Email -->
-                <div class="col-4 p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-4 p-2">
                     <label class="fs-5" for="">{{ formulario_usuario.email.label_tag }}</label>
                     {{ formulario_usuario.email }}
                     {% if formulario_usuario.email.errors %}
@@ -118,7 +118,7 @@
                 </div>
 
                 <!-- Campo Telefono -->
-                <div class="col-4 p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-4 p-2">
                     <label class="fs-5" for="">{{ formulario_perfil.telefono.label_tag }}</label>
                     {{ formulario_perfil.telefono }}
                     {% if formulario_perfil.telefono.errors %}
@@ -133,7 +133,7 @@
 
             <div class="row">
                 <!-- Campo Direccion -->
-                <div class="col-4 p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-4 p-2">
                     <label class="fs-5" for="">{{ formulario_perfil.direccion.label_tag }}</label>
                     {{ formulario_perfil.direccion }}
                     {% if formulario_perfil.direccion.errors %}
@@ -146,7 +146,7 @@
                 </div>
 
                 <!-- Campo Region -->
-                <div class="col-4 p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-4 p-2">
                     <label class="fs-5" for="">{{ formulario_perfil.region.label_tag }}</label>
                     {{ formulario_perfil.region }}
                     {% if formulario_perfil.region.errors %}
@@ -159,7 +159,7 @@
                 </div>
 
                 <!-- Campo Comuna -->
-                <div class="col-4 p-2">
+                <div class="col-12 offset-sm-2 col-sm-8 offset-md-0 col-md-4 p-2">
                     <label class="fs-5" for="">{{ formulario_perfil.comuna.label_tag }}</label>
                     {{ formulario_perfil.comuna }}
                     {% if formulario_perfil.comuna.errors %}

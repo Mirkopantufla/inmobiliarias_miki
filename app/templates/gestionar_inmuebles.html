@@ -11,7 +11,7 @@
     </div>
     <div class="row p-2 background-opacity">
         {% for inmueble in inmuebles %}
-        <div class="col-4">
+        <div class="col-12 col-md-6 col-lg-4">
             <div class="card my-2">
                 <div class="card-body">
                     <h5 class="card-title text-center ellipsed-title">
@@ -50,13 +50,20 @@
                     <p class="card-text p-3">
                         {{inmueble.descripcion}}
                     </p>
-                    <div class="d-flex justify-content-evenly">
-                        <a class="btn btn-warning" href="/detalle-inmueble/{{inmueble.id}}/">Ver</a>
-                        <a class="btn btn-primary" href="/actualizar-inmueble/{{inmueble.id}}/">Editar</a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#deleteModal" data-id="{{ inmueble.id }}">
-                            Eliminar
-                        </button>
+                    <div class="row">
+                        <div class="col-4">
+                            <a class="btn btn-warning w-100" href="/detalle-inmueble/{{inmueble.id}}/">Ver</a>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary w-100" href="/actualizar-inmueble/{{inmueble.id}}/">Editar</a>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal" data-id="{{ inmueble.id }}">
+                                Eliminar
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>

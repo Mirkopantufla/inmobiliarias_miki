@@ -30,10 +30,24 @@ class CustomPasswordChangeDoneView(PasswordChangeDoneView):
 
 def indice(request):
     inmuebles = Inmueble.objects.all()
+    casas = []
+    departamentos = []
+    parcelas = []
+
+    for inmueble in inmuebles:
+        if inmueble.tipo_inmueble.descripcion == 'Casa':
+            casas.append(inmueble)
+        elif inmueble.tipo_inmueble.descripcion == 'Departamento':
+            departamentos.append(inmueble)
+        elif inmueble.tipo_inmueble.descripcion == 'Parcela':
+            parcelas.append(inmueble)
 
     context = {
-        'inmuebles': inmuebles
+        'casas': casas,
+        'departamentos': departamentos,
+        'parcelas': parcelas
     }
+
     return render(request, 'index.html', context)
 
 
@@ -267,11 +281,11 @@ def detalle_inmueble(request, inmueble_id):
             'inmueble': inmueble
         }
     else:
-        mensajes = ContactArrendatario.objects.filter(
+        mensajes_inmueble = ContactArrendatario.objects.filter(
             id_arrendador=user.id, id_inmueble=inmueble_id)
         context = {
             'title': 'Detalles Inmueble',
-            'mensajes': mensajes,
+            'mensajes_inmueble': mensajes_inmueble,
             'inmueble': inmueble
         }
 

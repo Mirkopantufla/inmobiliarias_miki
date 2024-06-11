@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="row">
-                {% if profile.tipo_usuario.descripcion == 'Arrendatario' %}
+                {% if profile.tipo_usuario.descripcion == 'Arrendatario' and inmueble.id_usuario != user %}
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactoArrendadorModal"
                     data-id="{{ inmueble.id }}/{{ inmueble.id_usuario.id }}">
                     Contactar con {{inmueble.id_usuario.first_name}}
@@ -107,7 +107,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for mensaje in mensajes %}
+                            {% for mensaje in mensajes_inmueble %}
                             <tr>
                                 <td class="align-middle">{{mensaje.creacion_registro|date:"d-M-Y "}}</td>
                                 <td class="align-middle">{{mensaje.id_arrendatario.first_name}}</td>

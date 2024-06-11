@@ -1,7 +1,11 @@
 :root {
-    --primary-flan-color: #7076cf;
-    --secondary-flan-color: #CFBB70;
-    --base-flan-color: #71738F;
+    --primary-miki-color: #11677A;
+    --secondary-miki-color: #62BBCF;
+    --terciary-miki-color: rgb(160, 233, 250);
+    --base-miki-color: #FFE5CE;
+    --neutral-miki-color: #CF9662;
+    --accent-miki-color: #7A4311;
+
 }
 
 h1,
@@ -16,8 +20,13 @@ h6 {
     font-style: normal;
 }
 
+nav {
+    background-color: #CAF2FA;
+    border: 1px, solid, var(--primary-miki-color);
+}
+
 body {
-    background-color: var(--base-flan-color);
+    background-color: var(--base-miki-color);
     font-family: "Raleway", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -27,6 +36,10 @@ body {
 main {
     /* Calculo el alto del navbar y el alto del footer menos el 100% del view port */
     min-height: calc(100vh - 188px);
+}
+
+footer {
+    background-color: var(--accent-miki-color);
 }
 
 /* Quitar flechas para aumentar a disminuir los inputs tipo number */
@@ -55,8 +68,12 @@ input[type=number] {
     filter: invert(1);
 }
 
-.footer {
-    background-color: #3C3D4F;
+/* .primary-miki-color {
+    color: var(--primary-miki-color);
+} */
+
+.primary-bg-miki-color {
+    background-color: var(--primary-miki-color);
 }
 
 .custom-link {
@@ -64,7 +81,7 @@ input[type=number] {
 }
 
 .background-opacity {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(207, 150, 98, 0.4);
     border-radius: 10px;
 }
 
@@ -76,7 +93,7 @@ input[type=number] {
 
 .campo input:focus {
     outline-width: 1px;
-    outline-color: var(--primary-flan-color);
+    outline-color: var(--primary-miki-color);
 }
 
 .campo textarea {
@@ -88,7 +105,7 @@ input[type=number] {
 
 .campo textarea:focus {
     outline-width: 1px;
-    outline-color: var(--primary-flan-color);
+    outline-color: var(--primary-miki-color);
 }
 
 .formated-text {
@@ -143,8 +160,28 @@ input[type=number] {
 }
 
 /* Sobre escritura bootstrap */
+.btn-primary {
+    border: 1px, solid, var(--primary-miki-color);
+    background-color: var(--primary-miki-color);
+}
+
+.btn-primary:hover {
+    border: 1px, solid, var(--primary-miki-color);
+    background-color: var(--secondary-miki-color);
+}
+
+.btn-primary:active {
+    background-color: var(--secondary-miki-color);
+    opacity: 0.7;
+}
+
+.btn-primary:focus {
+    background-color: var(--primary-miki-color);
+    opacity: 0.7;
+}
+
 .card-text {
-    background-color: rgba(112, 118, 207, 0.4);
+    background-color: rgba(160, 233, 250, 0.4);
     border-radius: 5px;
     min-height: 80px;
     overflow: hidden;

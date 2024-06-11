@@ -9,77 +9,71 @@
             <h2 class="py-3 bg-body-tertiary">Explora algunas opciones</h2>
             <div class="row d-flex justify-content-center py-3">
                 <h4>Casas</h4>
-                {% for inmueble in inmuebles %}
-                {% if inmueble.tipo_inmueble.descripcion == 'Casa' %}
+                {% for casa in casas %}
                 <div class="card m-2 p-0" style="width: 200px;">
-                    <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
+                    <a class="custom-link" href="/detalle-inmueble/{{casa.id}}/">
                         <div class="card-body py-2">
                             <h5 class="card-title text-center ellipsed-title text-dark">
-                                {{inmueble.nombre}}
+                                {{casa.nombre}}
                             </h5>
                             <ul class="list-group list-group-flush border-top">
                                 <li class="list-group-item d-flex px-0 justify-content-start align-items-center">
                                     <img width="22px" height="22px" src="{% static '/img/icon-bed-mid.png' %}" alt="">
                                     <h6 class="px-2">Habitaciones:</h6>
                                     <span>
-                                        {{inmueble.cantidad_habitaciones}}
+                                        {{casa.cantidad_habitaciones}}
                                     </span>
                                 </li>
                             </ul>
                         </div>
                     </a>
                 </div>
-                {% endif %}
                 {% endfor %}
             </div>
             <div class="row d-flex justify-content-center py-3">
                 <h4>Departamentos</h4>
-                {% for inmueble in inmuebles %}
-                {% if inmueble.tipo_inmueble.descripcion == 'Departamento' %}
+                {% for departamento in departamentos %}
                 <div class="card m-2 p-0" style="width: 200px;">
-                    <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
+                    <a class="custom-link" href="/detalle-inmueble/{{departamento.id}}/">
                         <div class="card-body py-2">
                             <h5 class="card-title text-center ellipsed-title text-dark">
-                                {{inmueble.nombre}}
+                                {{departamento.nombre}}
                             </h5>
                             <ul class="list-group list-group-flush border-top">
                                 <li class="list-group-item d-flex px-0 justify-content-start align-items-center">
                                     <img width="22px" height="22px" src="{% static '/img/icon-bed-mid.png' %}" alt="">
                                     <h6 class="px-2">Habitaciones:</h6>
                                     <span>
-                                        {{inmueble.cantidad_habitaciones}}
+                                        {{departamento.cantidad_habitaciones}}
                                     </span>
                                 </li>
                             </ul>
                         </div>
                     </a>
                 </div>
-                {% endif %}
                 {% endfor %}
             </div>
             <div class="row d-flex justify-content-center py-3">
                 <h4>Parcelas</h4>
-                {% for inmueble in inmuebles %}
-                {% if inmueble.tipo_inmueble.descripcion == 'Parcela' %}
+                {% for parcela in parcelas %}
                 <div class="card m-2 p-0" style="width: 200px;">
-                    <a class="custom-link" href="/detalle-inmueble/{{inmueble.id}}/">
+                    <a class="custom-link" href="/detalle-inmueble/{{parcela.id}}/">
                         <div class="card-body py-2">
                             <h5 class="card-title text-center ellipsed-title text-dark">
-                                {{inmueble.nombre}}
+                                {{parcela.nombre}}
                             </h5>
                             <ul class="list-group list-group-flush border-top">
                                 <li class="list-group-item d-flex px-0 justify-content-start align-items-center">
                                     <img width="22px" height="22px" src="{% static '/img/icon-bed-mid.png' %}" alt="">
                                     <h6 class="px-2">Habitaciones:</h6>
                                     <span>
-                                        {{inmueble.cantidad_habitaciones}}
+                                        {{parcela.cantidad_habitaciones}}
                                     </span>
                                 </li>
                             </ul>
                         </div>
                     </a>
                 </div>
-                {% endif %}
                 {% endfor %}
             </div>
         </div>
