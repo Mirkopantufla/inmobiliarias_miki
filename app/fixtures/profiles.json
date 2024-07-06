@@ -5,7 +5,7 @@
         "fields": {
             "usuario": 1,
             "segundo_nombre": "Sergei",
-            "segundo_apellido": "Carcamo",
+            "apellido_materno": "Carcamo",
             "rut": 19746537,
             "dv": 5,
             "direccion": "Santa Rosa 884",
@@ -21,7 +21,7 @@
         "fields": {
             "usuario": 2,
             "segundo_nombre": "McQueen",
-            "segundo_apellido": "Amarillo",
+            "apellido_materno": "Amarillo",
             "rut": 26374857,
             "dv": 3,
             "direccion": "Mi Pieza",
