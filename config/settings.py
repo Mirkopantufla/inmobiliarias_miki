@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', default=os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -61,9 +61,9 @@ INSTALLED_APPS = [
 ]
 
 CLOUDINARY_STORAGE = {
-    'CLOD_NAME': os.getenv('CLOUD_NAME'),
-    'API_KEY': os.getenv('API_KEY'),
-    'API_SECRET': os.getenv('API_SECRET')
+    'CLOD_NAME': os.environ.get('CLOD_NAME', default=os.getenv('CLOUD_NAME')),
+    'API_KEY': os.environ.get('API_KEY', default=os.getenv('API_KEY')),
+    'API_SECRET': os.environ.get('API_SECRET', default=os.getenv('API_SECRET'))
 }
 
 MIDDLEWARE = [
@@ -107,7 +107,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://inmobiliarias_miki_user:Am67VUgyUFphOsdThvYE2nCOcOdhSyF1@dpg-cq4ajudds78s73chgag0-a/inmobiliarias_miki',
+        default=os.environ.get('DATABASE_URL', default=os.getenv('DATABASE_URL')),
         conn_max_age=600
     )
 }
