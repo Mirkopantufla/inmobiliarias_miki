@@ -26,7 +26,6 @@ pure-eval==0.2.2
 Pygments==2.18.0
 python-dotenv==1.0.1
 python-magic==0.4.27
-python-magic-bin==0.4.14
 requests==2.32.3
 six==1.16.0
 sqlparse==0.5.0
