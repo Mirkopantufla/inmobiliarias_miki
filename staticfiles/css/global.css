@@ -1,0 +1,209 @@
+:root {
+    --primary-miki-color: #1A5319;
+    --secondary-miki-color: 118, 29%, 43%;
+    --terciary-miki-color: #80AF81;
+    --base-miki-color: #D6EFD8;
+    --neutral-miki-color: #CF9662;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+nav {
+    background-color: hsla(var(--secondary-miki-color), 0.4);
+    border: 1px, solid, var(--primary-miki-color);
+}
+
+body {
+    background-color: var(--base-miki-color);
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+main {
+    /* Calculo el alto del navbar y el alto del footer menos el 100% del view port */
+    min-height: calc(100vh - 188px);
+}
+
+footer {
+    background-color: var(--primary-miki-color);
+}
+
+/* Quitar flechas para aumentar a disminuir los inputs tipo number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Quitar flechas para aumentar a disminuir los inputs tipo number */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.custom__image {
+    border-color: black;
+}
+
+.custom__image:hover {
+    transform: scale(98%);
+}
+
+.base__color {
+    background-color: var(--base-miki-color);
+}
+
+.punto-rojo {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 0, 0, 0.699);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.negro-blanco {
+    filter: invert(1);
+}
+
+/* .primary-miki-color {
+    color: var(--primary-miki-color);
+} */
+
+.primary-bg-miki-color {
+    background-color: var(--primary-miki-color);
+}
+
+.custom-link {
+    text-decoration: none;
+}
+
+.background-opacity {
+    background-color: hsla(var(--secondary-miki-color), 0.5);
+    border-radius: 10px;
+}
+
+.background-filter {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+}
+
+.campo input:focus {
+    outline-width: 1px;
+    outline-color: var(--primary-miki-color);
+}
+
+.campo textarea {
+    width: 100%;
+    border: 0px;
+    padding-left: 5px;
+    border-radius: 5px;
+}
+
+.campo textarea:focus {
+    outline-width: 1px;
+    outline-color: var(--primary-miki-color);
+}
+
+.formated-text {
+    white-space: pre-wrap;
+    text-align: start;
+    counter-reset: line;
+}
+
+.ellipsed-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.custom-header {
+    min-height: calc(100vh - 56px);
+    max-width: 100%;
+    background-image: url('../img/casa-bonita-minorca.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Estructura bootstrap */
+
+.custom-nav-width {
+    width: auto;
+}
+
+.custom-nav-item {
+    margin-left: 0;
+}
+
+@media (min-width: 992px) {
+
+    .custom-nav-width {
+        width: 100%;
+    }
+
+    .custom-nav-item {
+        margin-left: auto;
+    }
+}
+
+/* Google fonts */
+.dm-serif-text-regular {
+    font-size: 62px;
+    font-family: "DM Serif Text", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Sobre escritura bootstrap */
+.btn-primary {
+    border: 1px, solid, var(--primary-miki-color);
+    background-color: var(--primary-miki-color);
+}
+
+.btn-primary:hover {
+    border: 1px, solid, var(--primary-miki-color);
+    background-color: hsla(var(--secondary-miki-color), 1);
+}
+
+.btn-primary:active {
+    background-color: var(--secondary-miki-color);
+    opacity: 0.7;
+}
+
+.btn-primary:focus {
+    background-color: var(--primary-miki-color);
+    opacity: 0.7;
+}
+
+.card-text {
+    background-color: var(--base-miki-color);
+    border-radius: 5px;
+    min-height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.preview_image_format {
+    padding: 20px;
+    width: 150px;
+    height: 150px;
+}
