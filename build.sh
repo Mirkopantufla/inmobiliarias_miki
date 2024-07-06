@@ -23,3 +23,5 @@ python manage.py loaddata 'comunas.json'
 python manage.py loaddata 'users.json'
 python manage.py loaddata 'profiles.json'
 python manage.py loaddata 'inmuebles.json'
+
+export LC_ALL=C
