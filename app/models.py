@@ -143,7 +143,7 @@ class Inmueble(models.Model):
     )
 
     def format_price(self):
-        return "{:,}".format(self.oferta).replace(",", ".")
+        return "{:,}".format(self.precio_mensual).replace(",", ".")
 
     # def format_price(self):
     #     locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
