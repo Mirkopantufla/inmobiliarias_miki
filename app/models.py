@@ -144,7 +144,7 @@ class Inmueble(models.Model):
     )
 
     def format_price(self):
-        locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
+        locale.setlocale(locale.LC_ALL, 'es_ES.UTF-8')
         return locale.currency(self.precio_mensual, grouping=True)
 
     def __str__(self) -> str:
