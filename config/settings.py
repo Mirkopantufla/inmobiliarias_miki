@@ -107,7 +107,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/app',
+        default='postgresql://inmobiliarias_miki_user:Am67VUgyUFphOsdThvYE2nCOcOdhSyF1@dpg-cq4ajudds78s73chgag0-a/inmobiliarias_miki',
         conn_max_age=600
     )
 }
