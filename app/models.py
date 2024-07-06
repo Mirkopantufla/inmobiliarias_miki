@@ -143,7 +143,7 @@ class Inmueble(models.Model):
     )
 
     def format_price(self):
-        formated = "{:,}".format(self.precio_mensual).replace(",", ".")
+        formated = str("{:,}".format(self.precio_mensual).replace(",", "."))
         return ''.join(formated.split(-2))
 
     # def format_price(self):
@@ -208,7 +208,7 @@ class ContactArrendatario(models.Model):
     creacion_registro = models.DateField(auto_now_add=True)
 
     def format_price(self):
-        formated = "{:,}".format(self.oferta).replace(",", ".")
+        formated = str("{:,}".format(self.oferta).replace(",", "."))
         return ''.join(formated.split(-2))
 
     # def format_price(self):
