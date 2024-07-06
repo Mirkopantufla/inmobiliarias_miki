@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRe
 from ..models import Inmueble, Imagenes, Profile, ContactArrendatario, TipoImagen
 from ..forms import InmuebleForm, ContactArrendatarioForm
 from django.http import Http404
+from django.db.utils import OperationalError, ProgrammingError
 
 # ---------------------------------------- EXPLORAR TODOS LOS INMUEBLES ----------------------------------------
 @login_required(login_url='/login/')
@@ -13,7 +14,12 @@ def explorar_inmuebles(request):
     if request.method == 'GET':
         #Condiciono a que si el usuario es arrendatario, le brindo los inmuebles
         if profile.tipo_usuario.descripcion == 'Arrendatario':
-            inmuebles = Inmueble.objects.all()
+            try:
+                inmuebles = Inmueble.objects.all()
+            except (OperationalError, ProgrammingError) as e:
+                inmuebles = []
+                print(e)
+            
 
             context = {
                 'title': 'Buscar arriendos',
