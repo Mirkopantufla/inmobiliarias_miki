@@ -142,10 +142,16 @@ class Inmueble(models.Model):
         on_delete=models.CASCADE
     )
 
+    # def format_price(self):
+    #     formated = "{:,}".format(self.precio_mensual).replace(",", ".")
+    #     return formated
+    
+    
     def format_price(self):
-        formated = str("{:,}".format(self.precio_mensual).replace(",", "."))
-        return ''.join(formated.split(-2))
-
+        precio = self.precio_mensual.__round__()
+        formated = "{:,}".format(precio).replace(",", ".")
+        return formated
+        
     # def format_price(self):
     #     locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
     #     return locale.currency(self.precio_mensual, grouping=True)
@@ -206,6 +212,11 @@ class ContactArrendatario(models.Model):
     oferta = models.IntegerField()
     mensaje = models.TextField(max_length=2000)
     creacion_registro = models.DateField(auto_now_add=True)
+
+    def format_price(self):
+        precio = self.oferta.__round__()
+        formated = "{:,}".format(precio).replace(",", ".")
+        return formated
 
     def format_price(self):
         formated = str("{:,}".format(self.oferta).replace(",", "."))
