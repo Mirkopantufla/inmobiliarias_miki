@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
+from cloudinary.models import CloudinaryField
 from django.db import models
 import locale
 import uuid
@@ -8,7 +10,7 @@ import uuid
 # Create your models here.
 
 # Por buenas practicas, separo el dv del rut, para una supuesta verificación de rut, ya que la formula para el digito verificador arroja 10 para K y 11 para 0
-
+ext_validation = FileExtensionValidator(['png', 'jpeg', 'jpg'])
 
 class Profile(models.Model):
     usuario = models.OneToOneField(
@@ -112,8 +114,7 @@ class Inmueble(models.Model):
     nombre = models.CharField(max_length=200, blank=False, null=False)
     # Debe tener alguna descripcion
     descripcion = models.TextField(blank=False, null=False)
-    metros_cuadrados_terreno = models.IntegerField(
-        blank=False, null=False)  # Debe tener terreno
+    metros_cuadrados_terreno = models.IntegerField(blank=False, null=False)  # Debe tener terreno
     metros_cuadrados_construidos = models.IntegerField(default=0)
     cantidad_estacionamientos = models.SmallIntegerField(default=0)
     cantidad_habitaciones = models.SmallIntegerField(default=0)
@@ -195,12 +196,9 @@ class ContactForm(models.Model):
 
 
 class ContactArrendatario(models.Model):
-    id_arrendador = models.ForeignKey(
-        User, related_name='contactoArrendador', on_delete=models.CASCADE)
-    id_arrendatario = models.ForeignKey(
-        User, related_name='contactoArrendatario', on_delete=models.CASCADE)
-    id_inmueble = models.ForeignKey(
-        'Inmueble', related_name='contactoArrendatario', on_delete=models.CASCADE)
+    id_arrendador = models.ForeignKey(User, related_name='contactoArrendador', on_delete=models.CASCADE)
+    id_arrendatario = models.ForeignKey(User, related_name='contactoArrendatario', on_delete=models.CASCADE)
+    id_inmueble = models.ForeignKey('Inmueble', related_name='contactoArrendatario', on_delete=models.CASCADE)
     visto = models.BooleanField(default=False)
     oferta = models.IntegerField()
     mensaje = models.TextField(max_length=2000)
@@ -212,3 +210,45 @@ class ContactArrendatario(models.Model):
 
     def __str__(self):
         return f"{self.id_arrendatario} - Mensaje: {self.mensaje}"
+
+
+class Imagenes(models.Model):
+    auto_id = models.IntegerField()
+    id_usuario = models.ForeignKey(User, related_name='imagenes', on_delete=models.CASCADE)
+    categoria = models.ForeignKey('TipoImagen', related_name='tipoImagen', on_delete=models.CASCADE)
+    id_inmueble = models.ForeignKey(
+        'Inmueble',
+        related_name='inmuebles',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+    imagen = CloudinaryField(
+        'imagen',
+        folder="inmueblesMiki",
+        validators=[ext_validation],
+        resource_type="image",
+        use_filename=True,
+        unique_filename=False)
+
+    #LLave unica compuesta por categoria y id autoincrementable
+    class Meta:
+        unique_together = (('categoria', 'id'))
+
+
+    #Calcula el valor máximo de numero para la categoria dada y lo incrementa en 1.
+    #Para dar consistencia en id por categoria
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            max_id = Imagenes.objects.filter(categoria=self.categoria).aggregate(models.Max('auto_id'))['auto_id__max']
+            self.auto_id = (max_id or 0) + 1
+        super().save(*args, **kwargs)
+    
+    def __str__(self) -> str:
+        return  f"{self.categoria.descripcion} - {self.auto_id}"
+
+class TipoImagen(models.Model):
+    descripcion = models.TextField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.descripcion

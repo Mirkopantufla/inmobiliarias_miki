@@ -1,10 +1,9 @@
 :root {
-    --primary-miki-color: #11677A;
-    --secondary-miki-color: #62BBCF;
-    --terciary-miki-color: rgb(160, 233, 250);
-    --base-miki-color: #FFE5CE;
+    --primary-miki-color: #1A5319;
+    --secondary-miki-color: 118, 29%, 43%;
+    --terciary-miki-color: #80AF81;
+    --base-miki-color: #D6EFD8;
     --neutral-miki-color: #CF9662;
-    --accent-miki-color: #7A4311;
 
 }
 
@@ -21,7 +20,7 @@ h6 {
 }
 
 nav {
-    background-color: #CAF2FA;
+    background-color: hsla(var(--secondary-miki-color), 0.4);
     border: 1px, solid, var(--primary-miki-color);
 }
 
@@ -39,7 +38,7 @@ main {
 }
 
 footer {
-    background-color: var(--accent-miki-color);
+    background-color: var(--primary-miki-color);
 }
 
 /* Quitar flechas para aumentar a disminuir los inputs tipo number */
@@ -52,6 +51,18 @@ input[type=number]::-webkit-outer-spin-button {
 /* Quitar flechas para aumentar a disminuir los inputs tipo number */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.custom__image {
+    border-color: black;
+}
+
+.custom__image:hover {
+    transform: scale(98%);
+}
+
+.base__color {
+    background-color: var(--base-miki-color);
 }
 
 .punto-rojo {
@@ -81,7 +92,7 @@ input[type=number] {
 }
 
 .background-opacity {
-    background-color: rgba(207, 150, 98, 0.4);
+    background-color: hsla(var(--secondary-miki-color), 0.5);
     border-radius: 10px;
 }
 
@@ -167,7 +178,7 @@ input[type=number] {
 
 .btn-primary:hover {
     border: 1px, solid, var(--primary-miki-color);
-    background-color: var(--secondary-miki-color);
+    background-color: hsla(var(--secondary-miki-color), 1);
 }
 
 .btn-primary:active {
@@ -181,7 +192,7 @@ input[type=number] {
 }
 
 .card-text {
-    background-color: rgba(160, 233, 250, 0.4);
+    background-color: var(--base-miki-color);
     border-radius: 5px;
     min-height: 80px;
     overflow: hidden;
@@ -189,4 +200,10 @@ input[type=number] {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+.preview_image_format {
+    padding: 20px;
+    width: 150px;
+    height: 150px;
 }

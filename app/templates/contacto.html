@@ -11,8 +11,8 @@
             <form action="{% url 'contacto'%}" method="post">
                 {% csrf_token %}
                 {% for field in form %}
-                <div class="fieldWrapper p-2">
-                    <label class="fs-5" for="">{{ field.label_tag }}</label>
+                <div class="fieldWrapper w-75 m-auto my-4">
+                    <label class="fs-5 fw-bold" for="">{{ field.label_tag }}</label>
                     {{ field }}
                     {% for error in field.errors %}
                     <span class="text-danger">{{ error }}</span>

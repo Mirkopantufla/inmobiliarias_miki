@@ -1,0 +1,30 @@
+[
+    {
+        "model": "app.tipoimagen",
+        "pk": 1,
+        "fields": {
+            "descripcion": "Sin Registrar"
+        }
+    },
+    {
+        "model": "app.tipoimagen",
+        "pk": 2,
+        "fields": {
+            "descripcion": "Inmueble"
+        }
+    },
+    {
+        "model": "app.tipoimagen",
+        "pk": 3,
+        "fields": {
+            "descripcion": "Perfil"
+        }
+    },
+    {
+        "model": "app.tipoimagen",
+        "pk": 4,
+        "fields": {
+            "descripcion": "Oferta"
+        }
+    }
+]

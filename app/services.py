@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from .models import Profile, TipoUsuario, Inmueble, TipoInmueble, Region, Comuna
+from .models import Profile, TipoUsuario, Inmueble, TipoInmueble, Region, Comuna, Imagenes
 
 # User data
 # username, first_name, last_name, email, user_permissions, is_staff, is_active, is_superuser, last_login
@@ -289,3 +289,16 @@ Tipo Inmueble: {inmueble.tipo_inmueble.descripcion}
 """)
 
         archivo.close()
+
+
+def obtener_imagenes():
+    imagenes = Imagenes.objects.all()
+    for imagen in imagenes:
+        print(f"""ID: {imagen.auto_id}
+Usuario: {imagen.id_usuario}
+Categoria: {imagen.categoria}
+Inmueble: {imagen.id_inmueble.nombre}
+URL: {imagen.imagen.url}
+Tipo IMG: {imagen.imagen.type}
+""")
+    return True

@@ -8,7 +8,7 @@
     </div>
     <div class="row p-5 background-opacity">
         {% if formulario_inmueble != None %}
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
                 <div class="col-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 p-2">
@@ -21,6 +21,26 @@
                         {% endfor %}
                     </div>
                     {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 p-2">
+                    <h5>
+                        {{  formulario_inmueble.imagen.label_tag }}
+                    </h5>
+                    {{ formulario_inmueble.imagen }}
+                    {% if formulario_inmueble.imagen.errors %}
+                    <div class="error">
+                        {% for error in formulario_inmueble.imagen.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-12 offset-md-1 col-md-10 offset-lg-2 col-lg-8 p-2">
+                    <div class="visualizador_imagen max-h-10 d-none justify-content-evenly bg-white overflow-x-scroll">
+                        <!-- Visor de Imagenes -->
+                    </div>
                 </div>
             </div>
             <div class="row">

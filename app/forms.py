@@ -1,8 +1,10 @@
 from django import forms
 from django.forms import ModelForm
+from django.core.validators import FileExtensionValidator
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Profile, ContactForm, Inmueble, ContactArrendatario
+from .validators import validate_file_mimetype
+from .models import Profile, ContactForm, Inmueble, ContactArrendatario, Imagenes
 
 
 class ContactFormModelForm(ModelForm):
@@ -44,6 +46,14 @@ class ContactArrendatarioForm(ModelForm):
 
 
 class InmuebleForm(ModelForm):
+    imagen = forms.FileField(
+        widget=forms.ClearableFileInput(
+            attrs={'multiple': True}
+        ),
+        required=False,
+        validators=[FileExtensionValidator(
+            ['png', 'jpeg', 'jpg']), validate_file_mimetype]
+    )
 
     class Meta:
 
@@ -186,3 +196,23 @@ class ProfileCreationForm(ModelForm):
             'comuna': forms.Select(attrs={'class': 'form-select'}),
             'tipo_usuario': forms.Select(attrs={'class': 'form-select'}),
         }
+
+
+class UploadImageForm(ModelForm):
+
+    class Meta:
+        model = Imagenes
+        fields = ['imagen']
+        labels = {
+            'imagen': "Sube imagenes"
+        }
+        widgets = {
+            'imagen': forms.ClearableFileInput(
+                attrs={
+                    'multiple': True,
+                    'accept': 'image/jpeg,image/png,image/jpg'
+                }
+            )
+        }
+        validators = [FileExtensionValidator(
+            ['png', 'jpeg', 'jpg']), validate_file_mimetype]

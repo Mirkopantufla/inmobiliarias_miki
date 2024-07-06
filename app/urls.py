@@ -1,9 +1,10 @@
 from django.urls import path, include
-from .views import indice, register, exito, logout_view, profile, actualizar_prefil, acerca, gestion_inmueble, explorar_inmuebles, detalle_inmueble, visualizar_mensaje, contacto, contacto_arrendador, not_found, registrar_inmueble, modificar_inmueble, eliminar_inmueble, CustomPasswordChangeView, CustomLoginView, CustomPasswordChangeDoneView
+from .views import indice, register, exito, logout_view, profile, actualizar_prefil, acerca, pruebas, upload_image, gestion_inmueble, explorar_inmuebles, detalle_inmueble, visualizar_mensaje, contacto, contacto_arrendador, not_found, registrar_inmueble, modificar_inmueble, upload_image, eliminar_inmueble, CustomPasswordChangeView, CustomLoginView, CustomPasswordChangeDoneView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 urlpatterns = [
     path('', indice, name='indice'),
+    path('pruebas/', pruebas, name='pruebas'),
     path('register/', register, name='register'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', logout_view, name='logout'),
@@ -12,6 +13,7 @@ urlpatterns = [
     path('exito/', exito, name='exito'),
     path('contacto/', contacto, name='contacto'),
     path('not-found/', not_found, name='not_found'),
+    path('upload_image/', upload_image, name='upload_image'),
     path('gestionar-inmuebles/', gestion_inmueble, name='gestionar_inmuebles'),
     path('actualizar-perfil/', actualizar_prefil, name='actualizar_prefil'),
     path('explorar-inmuebles/', explorar_inmuebles, name='explorar_inmuebles'),
