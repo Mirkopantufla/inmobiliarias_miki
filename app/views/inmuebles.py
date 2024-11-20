@@ -48,12 +48,15 @@ def gestion_inmueble(request):
 
 
 # ---------------------------------------- DETALLE DE UN INMUEBLE ----------------------------------------
-@login_required(login_url='/login/')
 def detalle_inmueble(request, inmueble_id):
     user = request.user
-    profile = Profile.objects.get(usuario=user)
     inmueble = None
     formulario_contacto = ContactArrendatarioForm()
+
+    try:
+        profile = Profile.objects.get(usuario=user)
+    except :
+        profile = None
 
     try:
         inmueble = get_object_or_404(Inmueble, id=inmueble_id)
@@ -62,21 +65,27 @@ def detalle_inmueble(request, inmueble_id):
 
     #Busco las imagenes asociadas a este inmueble por su id
     imagenes_inmueble = Imagenes.objects.filter(id_inmueble = inmueble_id)
-
-    if profile.tipo_usuario.descripcion == 'Arrendatario':
-        context = {
-            'title': 'Detalles Inmueble',
-            'formulario_contacto': formulario_contacto,
-            'inmueble': inmueble,
-            'imagenes_inmueble': imagenes_inmueble
-        }
-    else:
-        #Si el usuario es arrendador, y dueño de la propiedad, le brindo los mensajes asociados
-        mensajes_inmueble = ContactArrendatario.objects.filter(id_arrendador=user.id, id_inmueble=inmueble_id)
+    if not profile == None:
+        if profile.tipo_usuario.descripcion == 'Arrendatario':
+            context = {
+                'title': 'Detalles Inmueble',
+                'formulario_contacto': formulario_contacto,
+                'inmueble': inmueble,
+                'imagenes_inmueble': imagenes_inmueble
+            }
+        else:
+            #Si el usuario es arrendador, y dueño de la propiedad, le brindo los mensajes asociados
+            mensajes_inmueble = ContactArrendatario.objects.filter(id_arrendador=user.id, id_inmueble=inmueble_id)
         
+            context = {
+                'title': 'Detalles Inmueble',
+                'mensajes_inmueble': mensajes_inmueble,
+                'inmueble': inmueble,
+                'imagenes_inmueble': imagenes_inmueble
+            }
+    else:
         context = {
             'title': 'Detalles Inmueble',
-            'mensajes_inmueble': mensajes_inmueble,
             'inmueble': inmueble,
             'imagenes_inmueble': imagenes_inmueble
         }
