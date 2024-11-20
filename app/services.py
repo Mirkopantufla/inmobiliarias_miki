@@ -17,7 +17,7 @@ def listar_usuarios_perfiles():
 Usuario: {user.usuario.username}
 Ultimo login: {date_time}
 Nombres: {user.usuario.first_name} {user.segundo_nombre}
-Apellidos: {user.usuario.last_name} {user.segundo_apellido}
+Apellidos: {user.usuario.last_name} {user.apellido_materno}
 Rut: {user.rut}-{user.dv}
 Telefono: {user.telefono}
 Email: {user.usuario.email}
@@ -44,7 +44,7 @@ def buscar_usuario(id):
 ID: {usuario_encontrado.id}
 Ultimo login: {date_time}
 Nombres: {usuario_encontrado.usuario.first_name} {usuario_encontrado.segundo_nombre}
-Apellidos: {usuario_encontrado.usuario.last_name} {usuario_encontrado.segundo_apellido}
+Apellidos: {usuario_encontrado.usuario.last_name} {usuario_encontrado.apellido_materno}
 Rut: {usuario_encontrado.rut}-{usuario_encontrado.dv}
 Telefono: {usuario_encontrado.telefono}
 Email: {usuario_encontrado.usuario.email}

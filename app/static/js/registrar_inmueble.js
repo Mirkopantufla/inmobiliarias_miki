@@ -1,27 +1,27 @@
 document.addEventListener("DOMContentLoaded", function() {
     const fileInput = document.querySelector('#id_imagen');
-    const visualizador_imagen = document.querySelector('.visualizador_imagen');
+    const contenedorImagenes = document.querySelector('.contenedor_imagenes');
+    const divImagenes = document.querySelector('#seccion-nuevas-imagenes')
 
     fileInput.addEventListener('change', function() {
-        visualizador_imagen.innerHTML = ''; // Clear previous previews
+        contenedorImagenes.innerHTML = ''; // Clear previous previews
+
         for (const file of fileInput.files) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const img = document.createElement('img');
                 img.src = e.target.result;
                 img.classList.add('preview_image_format')
-                // img.style.width = "200px"
-                // img.style.height = "200px"
-                visualizador_imagen.appendChild(img);
+                contenedorImagenes.appendChild(img);
             }
             reader.readAsDataURL(file);
         }
         if (fileInput.files) {
-            visualizador_imagen.classList.remove('d-none')
-            visualizador_imagen.classList.add('d-flex')
+            divImagenes.classList.remove('d-none')
+            divImagenes.classList.add('d-flex')
         }else{
-            visualizador_imagen.classList.remove('d-flex')
-            visualizador_imagen.classList.add('d-none')
+            divImagenes.classList.remove('d-flex')
+            divImagenes.classList.add('d-none')
         }
     });
 });

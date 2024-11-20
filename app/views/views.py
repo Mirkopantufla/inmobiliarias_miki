@@ -79,7 +79,12 @@ def contacto_arrendador(request, id_inmueble, id_arrendador):
             )
 
             datos.save()
-            return HttpResponseRedirect('/exito/')
+
+            mensaje = f'Has contactado a {arrendador.first_name}, ahora debes esperar a que te contacte nuevamente'
+            context = {
+                'mensaje': mensaje
+            }
+            return render(request, 'exito.html', context)
     else:
         formulario_contacto = ContactArrendatarioForm()
 

@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from cloudinary.models import CloudinaryField
 from django.db import models
-import locale
 import uuid
 
 # Create your models here.
@@ -141,20 +140,11 @@ class Inmueble(models.Model):
         related_name='inmueble',
         on_delete=models.CASCADE
     )
-
-    # def format_price(self):
-    #     formated = "{:,}".format(self.precio_mensual).replace(",", ".")
-    #     return formated
-    
     
     def format_price(self):
         precio = self.precio_mensual.__round__()
         formated = "{:,}".format(precio).replace(",", ".")
         return formated
-        
-    # def format_price(self):
-    #     locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
-    #     return locale.currency(self.precio_mensual, grouping=True)
 
     def __str__(self) -> str:
         return f'{self.nombre} / {self.descripcion}'
@@ -217,15 +207,6 @@ class ContactArrendatario(models.Model):
         precio = self.oferta.__round__()
         formated = "{:,}".format(precio).replace(",", ".")
         return formated
-
-    def format_price(self):
-        formated = str("{:,}".format(self.oferta).replace(",", "."))
-        return ''.join(formated.split(-2))
-
-    # def format_price(self):
-        
-    #     locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
-    #     return locale.currency(self.oferta, grouping=True)
 
     def __str__(self):
         return f"{self.id_arrendatario} - Mensaje: {self.mensaje}"

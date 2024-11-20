@@ -79,10 +79,6 @@ input[type=number] {
     filter: invert(1);
 }
 
-/* .primary-miki-color {
-    color: var(--primary-miki-color);
-} */
-
 .primary-bg-miki-color {
     background-color: var(--primary-miki-color);
 }
@@ -203,7 +199,7 @@ input[type=number] {
 }
 
 .preview_image_format {
-    padding: 20px;
+    padding: 10px;
     width: 150px;
     height: 150px;
 }
